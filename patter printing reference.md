@@ -1,9 +1,13 @@
 # Pattern Printing
 
 #*****
+
 #*****
+
 #*****
+
 #*****
+
 #*****
 
 Solution :
