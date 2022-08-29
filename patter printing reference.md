@@ -1,14 +1,14 @@
 # Pattern Printing
 
-#*****
+*****
 
-#*****
+*****
 
-#*****
+*****
 
-#*****
+*****
 
-#*****
+*****
 
 Solution :
 To create a square pattern, we need 2 nested loops. The outer loop will print a number of rows and the inner loop will print the star in each row.
