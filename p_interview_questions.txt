@@ -1,0 +1,29 @@
+ImpactGuru : 24-08-2022 :
+- Personal:
+    - tell me about yourself
+    - in your resume i saw you have used 5.5 laravel version and not the updated version.
+        - what is the reason behind doing so.
+        - why have you not upgraded your laravel version to latest one.
+        - and if you do not pgrade now there will be some time when older versions will get deprecated then it will take a lot of time to build same thing then what will you do.
+        - what are the different features in old and new laravel versionings.
+
+- PHP:
+    - what is oops
+    - what are oops concepts
+    - inheritance
+    - method overriding
+    - interfaces
+    - what is unset and unlink
+
+- Practical:
+    - make star pattern and show in gmeet by presenting your screen:
+                *
+               ***
+              *****
+            *********
+           ************
+
+- laravel:
+    - what are traits
+    - why are traits used
+    - what are jobs
