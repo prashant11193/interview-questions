@@ -10,7 +10,7 @@ ImpactGuru : 24-08-2022 : 10am : gmeet :
 - PHP:
     - what is oops
     - what are oops concepts
-    - inheritance
+    - inheritance (The child class will inherit all the public and protected properties and methods from the parent class)
     - method overriding
     - interfaces
     - what is unset and unlink
@@ -41,26 +41,35 @@ Neosoft : 29-08-2022 : 5pm : telephonic :
 	- is the project domestic or international
 	
 - PHP :
-	- why are sessions used in php
-	- what is interfaces
-	- what is abstract class
+	- why are sessions used in php (A session is a way to store information (in variables) to be used across multiple pages.)
+	- session_unset()(remove all session variables), session_destroy() (destroy the session) 
+	- what is interfaces (interfaces allow you to specify which methods a class should implement)
+	- what is abstract class (Abstract classes and methods are when the parent class has a named method, but need its child class(es) to fill out the tasks)
 	- what is method overloading and method overriding
 	- which one is better? sessions or cookies?
-	- How does php allow multiple inheritance
-	- what is diference between aray_merge and array_combine
-	- what are types of errors in php
+	- How does php allow multiple inheritance (yes it supports multiple inheritance through traits, Traits are used to declare methods that can be used in multiple classes.)
+	- what is diference between array_merge( merge two or more arrays into a single array) and array_combine (combine two arrays and create a new array by using one array for keys and another array for values)
+	- what are types of errors in php (syntax/parse, fatal, warning, notice)
 	- what is runtime polymorphism (method overriding)
-	
+	- what are access modifiers in php (private, public, protected)
+	- how are errors handled
+	- what are exceptions and how do we handle exceptions
+	- how to handle infinite loopp error in php
+	- what is difference between error handling and exception handling
+	- what is final keyword  (The final keyword can be used to prevent class inheritance or to prevent method overriding)
+	- static methods (Static methods can be called directly - without creating an instance of the class first.)
+	- cookie (A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too)
 	
 - laravel :
 	- what are interfaces
-	- what are traits
+	- what are traits (Traits are used to declare methods that can be used in multiple classes. Traits can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier (public, private, or protected).)
 	- what are service providers
 	- what are service containers
 	- why are migrations used in laravel
 	- what are middlewares
 	- can you create custom middlewares
 	- where do you register middlewares
+	- what are repositories, how are they used
 	
 - MySQL :
 	- what are stored procedures (stored procedure is a prepared sql code that you can save so that code can be reused again)
@@ -72,7 +81,8 @@ Neosoft : 29-08-2022 : 5pm : telephonic :
 
 - GIT:
 	- have you used any versioning tool
+	- create branch command in git (git branch branchname)
 	- if yes then what is git stash
-	- what is git rebase
+	- what is git rebase (It is an alternative of git merge command. It is a linear process of merging)
 	
 	
