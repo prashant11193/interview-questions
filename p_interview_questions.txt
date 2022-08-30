@@ -1,4 +1,4 @@
-ImpactGuru : 24-08-2022 :
+ImpactGuru : 24-08-2022 : 10am : gmeet :
 - Personal:
     - tell me about yourself
     - in your resume i saw you have used 5.5 laravel version and not the updated version.
@@ -27,3 +27,52 @@ ImpactGuru : 24-08-2022 :
     - what are traits
     - why are traits used
     - what are jobs
+	
+	
+Neosoft : 29-08-2022 : 5pm : telephonic :
+- Personal :
+	- tell me about yourself
+	- eduction, working with, years of experience
+	- projects you have worked on
+	- how many projects were in laravel
+	- curently working on which project
+	- what is that project about
+	- what functionalities have you worked on
+	- is the project domestic or international
+	
+- PHP :
+	- why are sessions used in php
+	- what is interfaces
+	- what is abstract class
+	- what is method overloading and method overriding
+	- which one is better? sessions or cookies?
+	- How does php allow multiple inheritance
+	- what is diference between aray_merge and array_combine
+	- what are types of errors in php
+	- what is runtime polymorphism (method overriding)
+	
+	
+- laravel :
+	- what are interfaces
+	- what are traits
+	- what are service providers
+	- what are service containers
+	- why are migrations used in laravel
+	- what are middlewares
+	- can you create custom middlewares
+	- where do you register middlewares
+	
+- MySQL :
+	- what are stored procedures (stored procedure is a prepared sql code that you can save so that code can be reused again)
+	- what are triggers (special type of stored procedure that automatically runs when an event occurs in the db server)
+	- what is primary key, foreign key and unique key (why are they used for) (primary key - which uniquely identifies each row/record in db table primary keys must contain unique values and hence it canot contain null value )
+	- can unique values contain null values if yes then how many (it can be null, multiple unique keys can be present in a table)
+	- what is indexing (used to retrieve data from db very fast, to increase performance of queries )
+	- how do we do indexing
+
+- GIT:
+	- have you used any versioning tool
+	- if yes then what is git stash
+	- what is git rebase
+	
+	
