@@ -15,7 +15,7 @@ ImpactGuru : 24-08-2022 : 10am : gmeet :
     - interfaces
     - what is unset and unlink
 
-- Practical:
+- PRACTICAL:
     - make star pattern and show in gmeet by presenting your screen:
                 *
                ***
@@ -23,7 +23,7 @@ ImpactGuru : 24-08-2022 : 10am : gmeet :
             *********
            ************
 
-- laravel:
+- LARAVEL:
     - what are traits
     - why are traits used
     - what are jobs
@@ -57,7 +57,7 @@ Neosoft : 29-08-2022 : 5pm : telephonic :
 	- how to handle infinite loopp error in php
 	- what is difference between error handling and exception handling
 	- what is final keyword  (The final keyword can be used to prevent class inheritance or to prevent method overriding)
-	- static methods (Static methods can be called directly - without creating an instance of the class first.)
+	- static methods (Static methods can be called directly - without creating an instance of the class first)
 	- cookie (A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too)
 	
 - laravel :
@@ -83,6 +83,136 @@ Neosoft : 29-08-2022 : 5pm : telephonic :
 	- have you used any versioning tool
 	- create branch command in git (git branch branchname)
 	- if yes then what is git stash
+	- git stash pop (git stash pop throws away the (topmost, by default) stash after applying it, whereas git stash apply leaves it in the stash list for possible later reuse (or you can then git stash drop it).)
 	- what is git rebase (It is an alternative of git merge command. It is a linear process of merging)
 	
 	
+ CeX WeBuy Entertainment Pvt. Ltd. : 30-08-2022 : 7pm : Gmeet:
+ 
+ 
+ Tradofina : 01-08-2022 : 5pm : gmeet: (whith screen share, video on and write everything in notepad):
+ 
+ PHP:
+ - how do you define constant in php
+ - what are various loops in php, write and explain them in detail
+ - what are abstract classes, write an example
+ - write an array of numbers and print the second most highest number of the same
+ - write a string and print its values in array
+ 
+ Laravel:
+ - middlewares
+ - repositories
+ - routes
+ - have you used api, then tell how to create an api for users listing.
+ 
+ Oops:
+ - what are oops concepts
+ - what is encapsulation
+ - write an example for encapsulation
+ 
+ 
+ Mysql:
+ - which engine do you use in mysql
+ - which engines are present in mysql
+ - what are a few sql queries
+ - do you know joins? what are various types of joins
+ - write a query in join and explain it in detail
+ 
+ 
+ 
+ 
+Tradofina : Second Round : Interview questions: 06-09-22
+
+
+var_dump(empty(0)) true
+var_dump(empty(‘0’)) false
+
+var_dump((0123==123)) false
+
+var_dump((‘0123’==123)) false
+
+$x  = [
+[1,2,3],
+[4,5,6],
+[7,8,9]
+] 
+calculate the sum of each diagonal
+
+$a = $x[0][0]+$x[1][1]+$x[2][2];
+
+for($i=0;$i>$x;$i++)
+{
+	$arr = [];
+	$a=$x[$i][$i];
+	array_push($a, $arr);
+	$sum = array_sum($arr);
+	echo $sum;
+}
+
+
+MSQL query for third highest score in a class 
+my answer : Select * from students Group by score Order by score asc;
+actual answer : SELECT * FROM `student_table` ORDER BY marks DESC LIMIT 2,1
+(LIMIT == The LIMIT clause is used to specify the number of records to return)
+
+
+
+
+ 
+The George Institute for Global Health : 08-09-2022 : 9:30 : gmeet: (video on):
+ - how is encryption handled in php at server side
+ - what are the array functions that are present in php
+ - what are joins. what is inner join and left join. which join is better or which join would you prefer.
+ 
+ 
+ 
+ 
+CeX WeBuy Entertainment Pvt. Ltd. :Second Round : 12-09-2022 : 7:30pm : Gmeet:
+- Give a small introduction about yourself
+- How many years of experience do you have? (it feels humiliating when a person asks it in middle of an interview)
+
+OOPS:
+- Do you know about oops concepts.
+- If yes then tell something about encaptulation
+- Why is encapsulation used. Where or how do you implement encapsulation, give an example. For what purpose is encapsulation used
+- What is abstract class, why is it used. Give example for abstract classes as in why are they used
+- What is method overloading. How do you implement it, give an example set
+- What is method overriding, what is the purpose behind it?
+- Are method overloading and overriding same? if not then what is the difference. In what cases do you used them
+- what are sessions and cookies (all questions related to sessions and cookies confusing in every way/in depth questioning for the same)
+- how does session eactly work
+- where is it exactly stored ? at the browser end or at the server
+- session has unique key hence it recognizes the user but what if the same session key is stored against amother user, then will another user be able to see first users data?
+- what is cookie. how does that work
+- what are namespaces? in detail explanation of it
+- what is static used for? why are static variables and methods used
+
+- What is Rest API
+- Have you implemented any third party API
+- How does it work
+- How does it security work while implementing the third party API
+- How did you implement payment gateway API
+
+
+- Have you used HTTP Requests
+- What is get and post?
+- When do we use get method and when do we use post method. Give a proper explanation for the same
+- Even when we use post method still we will be able to read variable data then why would you still prefer post method
+
+
+GIT:
+- have you used any versoning system
+- how do you resolve conflicts
+- what is rebase used for, give an example/ why is rebase used for
+
+CODING:
+- Write a program for login page
+- In login page why did you write '/' in the action method
+- what happens if you dont give that '/'(slash)
+
+
+DATABASE:
+- what are different database engines. Give examples of it
+- which database engine is used depending on requirement. How will you decide which db engine is to be used
+- What is Innodb, MyIsam used specifically for
+- What is relational dbms

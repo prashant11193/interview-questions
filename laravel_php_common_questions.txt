@@ -1,0 +1,47 @@
+- service container
+--(The Laravel service container is a powerful tool for managing class dependencies and performing dependency injection. Dependency injection is a fancy phrase that essentially means this: class dependencies are "injected" into the class via the constructor or, in some cases, "setter" methods)
+
+- service provider
+--(They are the central place to configure your application.The service providers listed here will be automatically loaded on the request to your application)
+
+Service container is the place our application bindings are stored. And the service providers are the classes where we register our bindings to service container
+
+
+- facades
+--(a facade is a class that provides access to an object from the container)
+
+- oops
+
+- middleware
+--(Laravel Middleware acts as a bridge between a request and a reaction.It incorporates a middleware that confirms whether or not the client of the application is verified. If the client is confirmed, it diverts to the home page otherwise, it diverts to the login page)
+
+- how does session work on client side and on server side
+
+- how does request lifecycle (entire lifecycle)
+--public--index.php->kernal->service provider->router->controller/view.
+
+- reflection class 
+-- php (Reflection of PHP Programming Language usually defined as some program’s ability of inspecting itself and then modifying the logic itself at the time of program execution.)
+
+- difference between features of php 7 and php 8
+
+- if dont know features between php 7 and 8 then diference between php 5 and php 7
+
+- what is the diference between delete, drop, truncate in sql
+-- (The DELETE command deletes one or more existing records from the table in the database. The DROP Command drops the complete table from the database. The TRUNCATE Command deletes all the rows from the existing table, leaving the row with the column names)
+
+- latest version of php : 8.1
+
+- what is artisan
+--(Artisan is the name of the command-line interface included with Laravel. It provides a number of helpful commands for your use while developing your application. It is driven by the powerful Symfony Console component)
+
+- what is kernel
+--(The HTTP Kernel is used to process requests that come in through the web (HTTP) whereas the Console Kernel is used when you interact with your application from the command line.)
+
+- Repository
+--(Repositories are classes or components that encapsulate the logic required to access data sources. They centralize common data access functionality, providing better maintainability and decoupling the infrastructure or technology used to access databases from the domain model layer)
+
+- static 
+--The static keyword is used to declare properties and methods of a class as static.
+--Static properties and methods can be used without creating an instance of the class.
+--The static keyword is also used to declare variables in a function which keep their value after the function has ended
