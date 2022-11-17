@@ -1,0 +1,218 @@
+ImpactGuru : 24-08-2022 : 10am : gmeet :
+- Personal:
+    - tell me about yourself
+    - in your resume i saw you have used 5.5 laravel version and not the updated version.
+        - what is the reason behind doing so.
+        - why have you not upgraded your laravel version to latest one.
+        - and if you do not pgrade now there will be some time when older versions will get deprecated then it will take a lot of time to build same thing then what will you do.
+        - what are the different features in old and new laravel versionings.
+
+- PHP:
+    - what is oops
+    - what are oops concepts
+    - inheritance (The child class will inherit all the public and protected properties and methods from the parent class)
+    - method overriding
+    - interfaces
+    - what is unset and unlink
+
+- PRACTICAL:
+    - make star pattern and show in gmeet by presenting your screen:
+                *
+               ***
+              *****
+            *********
+           ************
+
+- LARAVEL:
+    - what are traits
+    - why are traits used
+    - what are jobs
+	
+	
+Neosoft : 29-08-2022 : 5pm : telephonic :
+- Personal :
+	- tell me about yourself
+	- eduction, working with, years of experience
+	- projects you have worked on
+	- how many projects were in laravel
+	- curently working on which project
+	- what is that project about
+	- what functionalities have you worked on
+	- is the project domestic or international
+	
+- PHP :
+	- why are sessions used in php (A session is a way to store information (in variables) to be used across multiple pages.)
+	- session_unset()(remove all session variables), session_destroy() (destroy the session) 
+	- what is interfaces (interfaces allow you to specify which methods a class should implement)
+	- what is abstract class (Abstract classes and methods are when the parent class has a named method, but need its child class(es) to fill out the tasks)
+	- what is method overloading and method overriding
+	- which one is better? sessions or cookies?
+	- How does php allow multiple inheritance (yes it supports multiple inheritance through traits, Traits are used to declare methods that can be used in multiple classes.)
+	- what is diference between array_merge( merge two or more arrays into a single array) and array_combine (combine two arrays and create a new array by using one array for keys and another array for values)
+	- what are types of errors in php (syntax/parse, fatal, warning, notice)
+	- what is runtime polymorphism (method overriding)
+	- what are access modifiers in php (private, public, protected)
+	- how are errors handled
+	- what are exceptions and how do we handle exceptions
+	- how to handle infinite loopp error in php
+	- what is difference between error handling and exception handling
+	- what is final keyword  (The final keyword can be used to prevent class inheritance or to prevent method overriding)
+	- static methods (Static methods can be called directly - without creating an instance of the class first)
+	- cookie (A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too)
+	
+- laravel :
+	- what are interfaces
+	- what are traits (Traits are used to declare methods that can be used in multiple classes. Traits can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier (public, private, or protected).)
+	- what are service providers
+	- what are service containers
+	- why are migrations used in laravel
+	- what are middlewares
+	- can you create custom middlewares
+	- where do you register middlewares
+	- what are repositories, how are they used
+	
+- MySQL :
+	- what are stored procedures (stored procedure is a prepared sql code that you can save so that code can be reused again)
+	- what are triggers (special type of stored procedure that automatically runs when an event occurs in the db server)
+	- what is primary key, foreign key and unique key (why are they used for) (primary key - which uniquely identifies each row/record in db table primary keys must contain unique values and hence it canot contain null value )
+	- can unique values contain null values if yes then how many (it can be null, multiple unique keys can be present in a table)
+	- what is indexing (used to retrieve data from db very fast, to increase performance of queries )
+	- how do we do indexing
+
+- GIT:
+	- have you used any versioning tool
+	- create branch command in git (git branch branchname)
+	- if yes then what is git stash
+	- git stash pop (git stash pop throws away the (topmost, by default) stash after applying it, whereas git stash apply leaves it in the stash list for possible later reuse (or you can then git stash drop it).)
+	- what is git rebase (It is an alternative of git merge command. It is a linear process of merging)
+	
+	
+ CeX WeBuy Entertainment Pvt. Ltd. : 30-08-2022 : 7pm : Gmeet:
+ 
+ 
+ Tradofina : 01-08-2022 : 5pm : gmeet: (whith screen share, video on and write everything in notepad):
+ 
+ PHP:
+ - how do you define constant in php
+ - what are various loops in php, write and explain them in detail
+ - what are abstract classes, write an example
+ - write an array of numbers and print the second most highest number of the same
+ - write a string and print its values in array
+ 
+ Laravel:
+ - middlewares
+ - repositories
+ - routes
+ - have you used api, then tell how to create an api for users listing.
+ 
+ Oops:
+ - what are oops concepts
+ - what is encapsulation
+ - write an example for encapsulation
+ 
+ 
+ Mysql:
+ - which engine do you use in mysql
+ - which engines are present in mysql
+ - what are a few sql queries
+ - do you know joins? what are various types of joins
+ - write a query in join and explain it in detail
+ 
+ 
+ 
+ 
+Tradofina : Second Round : Interview questions: 06-09-22
+
+
+var_dump(empty(0)) true
+var_dump(empty(‘0’)) false
+
+var_dump((0123==123)) false
+
+var_dump((‘0123’==123)) false
+
+$x  = [
+[1,2,3],
+[4,5,6],
+[7,8,9]
+] 
+calculate the sum of each diagonal
+
+$a = $x[0][0]+$x[1][1]+$x[2][2];
+
+for($i=0;$i>$x;$i++)
+{
+	$arr = [];
+	$a=$x[$i][$i];
+	array_push($a, $arr);
+	$sum = array_sum($arr);
+	echo $sum;
+}
+
+
+MSQL query for third highest score in a class 
+my answer : Select * from students Group by score Order by score asc;
+actual answer : SELECT * FROM `student_table` ORDER BY marks DESC LIMIT 2,1
+(LIMIT == The LIMIT clause is used to specify the number of records to return)
+
+
+
+
+ 
+The George Institute for Global Health : 08-09-2022 : 9:30 : gmeet: (video on):
+ - how is encryption handled in php at server side
+ - what are the array functions that are present in php
+ - what are joins. what is inner join and left join. which join is better or which join would you prefer.
+ 
+ 
+ 
+ 
+CeX WeBuy Entertainment Pvt. Ltd. :Second Round : 12-09-2022 : 7:30pm : Gmeet:
+- Give a small introduction about yourself
+- How many years of experience do you have? (it feels humiliating when a person asks it in middle of an interview)
+
+OOPS:
+- Do you know about oops concepts.
+- If yes then tell something about encaptulation
+- Why is encapsulation used. Where or how do you implement encapsulation, give an example. For what purpose is encapsulation used
+- What is abstract class, why is it used. Give example for abstract classes as in why are they used
+- What is method overloading. How do you implement it, give an example set
+- What is method overriding, what is the purpose behind it?
+- Are method overloading and overriding same? if not then what is the difference. In what cases do you used them
+- what are sessions and cookies (all questions related to sessions and cookies confusing in every way/in depth questioning for the same)
+- how does session eactly work
+- where is it exactly stored ? at the browser end or at the server
+- session has unique key hence it recognizes the user but what if the same session key is stored against amother user, then will another user be able to see first users data?
+- what is cookie. how does that work
+- what are namespaces? in detail explanation of it
+- what is static used for? why are static variables and methods used
+
+- What is Rest API
+- Have you implemented any third party API
+- How does it work
+- How does it security work while implementing the third party API
+- How did you implement payment gateway API
+
+
+- Have you used HTTP Requests
+- What is get and post?
+- When do we use get method and when do we use post method. Give a proper explanation for the same
+- Even when we use post method still we will be able to read variable data then why would you still prefer post method
+
+
+GIT:
+- have you used any versoning system
+- how do you resolve conflicts
+- what is rebase used for, give an example/ why is rebase used for
+
+CODING:
+- Write a program for login page
+- In login page why did you write '/' in the action method
+- what happens if you dont give that '/'(slash)
+
+
+DATABASE:
+- what are different database engines. Give examples of it
+- which database engine is used depending on requirement. How will you decide which db engine is to be used
+- What is Innodb, MyIsam used specifically for
+- What is relational dbms
