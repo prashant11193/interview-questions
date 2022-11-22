@@ -216,3 +216,187 @@ DATABASE:
 - which database engine is used depending on requirement. How will you decide which db engine is to be used
 - What is Innodb, MyIsam used specifically for
 - What is relational dbms
+
+CLOUD SERVICES:
+- What is CI/CD service
+
+
+
+Unknown : 13-09-22 : 5pm : Telephonic interview :
+AWS:
+- How do you Auto scale any application in aws
+- Which load balancers have you worked on
+- If there is 500 server error and because of that if the system is not able to write in laravel logs then where would you check the logs of what has went wrong? (we can check apache logs)
+
+LARAVEL:
+- What is the difference between middleware and controller
+- I can write functions even in route file then why do we prefer writing them in controllers and not in route file
+- How do you protect the routes that are not in auth such as login,register (these routes are already protected by laravel, there is some rate limiting set in laravel where a route can not be hit more than that mentioned number of times).
+- If there is content in your oroject and if i want to upload that content and if it is of 1 gb around then how wil you do it from you laravel porject
+- What are the security features that you would implement if you dont want any user to download the content on their end
+
+CODING:
+- what will be the code t print even number without using modulo or division
+
+CeX WeBuy Entertainment Pvt. Ltd. :Third Round : 21-09-2022 : 7:30pm : Gmeet:
+
+
+
+Pixacore : 1st round : 14-10-2022 : 8pm : Meets
+--Give short introduction about yourself, your role and responsibilities, projects worked on
+
+-- scenario  based
+- if your system is hacked then what will be the steps that you will follow to check if it is hacked.
+
+-- html
+- what is html5
+- what is difference between html4 and html5.
+- why was html5 implemented
+- name a few html5 elements
+
+
+-- css
+- properties of css
+
+-- js
+- what is event delegation (Instead of adding an event listener to each and every similar element, we can add an event listener to a parent element and call an event on a particular target using the . target property of the event object.)
+
+-- wordpress
+- what is difference between posts and pages (pages are used for static content, whereas posts are for more timely content that is regularly updated.)
+- what is taxonomy (When you use a taxonomy you're grouping similar things together.)
+
+-- oops
+- abstraction
+- difference between class and object
+- encapsulation
+- inheritance
+- polymorphism
+
+-- php
+- namespace
+- closure
+- differenct between isset and array_key_exists
+- constructor and destructor
+- difference between $ and $$
+- what are global variables
+- what is difference between super global and global variables
+- what are access specifiers in php
+- what inheritance exist in php., can multiple inheritance be implemented in php. if yes then how?
+
+
+SYNCEZY : 18-10-22 : 9:30am : meets (1st round)
+- more about yourself and the projects that you have worked on.
+- have you done any third party integrations apart from payment gateway.
+
+
+SYNCEZY : 19-10-22 : 9:00am : meets (2nd technical round by tech lead)
+- more questions were based on scenario based.
+
+Wipro : 18-10-22 : 3:30 : teams meet ... good at laravel but worst at database
+
+-- laravel
+- authentication and authorization (Authentication is the process of validating a users credentials. Is the user is in the system and does their username match their password? Authorization is what permissions do they have in the system)
+- guard and provider in laravel
+- what are service provider (Service providers are the central place of all Laravel application bootstrapping,the central place to configure your application.)
+- what are observers
+- what are events and listeneres
+- what are jobs and queues
+- have you worled on third party integration - payment gateway integration?
+- what are facades
+- how many relations are there in laravel
+- what is polymorphic relation
+- what is composer.json and package.json (package.json is a npm file to keep track of npm packages. composer.json is a composer file to keep track of php packages.)
+- have you build your own package? how do we do that?
+- how was authenctication done? jwt or 02auth? how do you implement it?
+
+-- database
+- database engines (Innodb, Myisam, InfiniDB,Falcon)
+- what is the mysql db structure
+- normalization (Normalization is the process of organizing data in a database. This includes creating tables and establishing relationships between those tables according to rules designed both to protect the data and to make the database more flexible by eliminating redundancy and inconsistent dependency.)
+- how will you optimize query performance
+- idampotent?? (An operation that produces the same results no matter how many times it is performed. For example, a database query that does not change any data in the database is idempotent. Functions can be designed as idempotent if all that is desired is to ensure a certain operation has been completed.)
+
+- what is redis
+
+-- php
+- what is rest api
+- what are status code in rest api (200-ok, 201-created, 400-bad request,401-unauthorized, 403- forbidden, 404-not found, 405- nethod not allowed).
+- methods of rest api (It is specially designed for transmitting data through the HTTP protocol.)
+- have you worked on latest php - php 8
+- what are magic functions (construct(), __destruct(), __call(), __callStatic(), __get(), __set(), __isset(), __unset(), __sleep(), __wakeup(), __serialize(), __unserialize(), __toString(), __invoke(), __set_state(), __clone(), and __debugInfo().)
+- what is static (Static properties and methods can be used without creating an instance of the class. The static keyword is also used to declare variables in a function which keep their value after the function has ended.)
+- difference between post, put and patch methods (POST is always for creating a resource ( does not matter if it was duplicated ) PUT is for checking if resource exists then update, else create new resource. PATCH is always for updating a resource)
+(PUT means replace the entire resource with given data (so null out fields if they are not provided in therequest), while PATCH means replace only specified fields.)
+
+------------------------
+-- micro services php
+- an architectural and organizational approach to software development where software is composed of small independent services that communicate over well-defined APIs
+
+
+
+CitiusTech : 1st round : 28-10-2022 : 12pm : zoom meeting : php full stack developer role :
+- 
+
+
+
+
+
+ON CALL Darwin HR :
+-- load balancing
+-- microservices
+-- authorization and autnetication
+-- vertical and horizontal scaling:
+- With vertical scaling (“scaling up”), you're adding more compute power to your existing instances/nodes. 
+- In horizontal scaling (“scaling out”), you get the additional capacity in a system by adding more instances to your environment, sharing the processing and memory workload across multiple devices.
+
+
+DarwinBox : 1st technical round : 03-11-2022 : 7:30pm : zoom meeting : sr software engineer role :
+- oops concepts --in detail explanation
+- sessions and cookies
+- what are the different ways of storing sessions
+- what is difference between abstract class and interfaces
+- what is eloquent
+- laravel routing
+- csrf token
+- give details about making a cab booking app (steps, db structure)
+- domain name mapping --by a records
+- route53
+- self join
+
+Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr software engineer role :
+-- LARAVEL
+- what is middleware
+- what is example set for middleware
+- what is csrf token used for
+- what does http kernel file hold (application's global HTTP middleware stack),,, onsole/kernel file the application's command schedule.
+- what is authorization and authentication (difference between both)
+- what is eloquent
+- what are pros and cons of using eloquent. When will you use eloquent and raw db querying.
+- current version of laravel
+- difference between laravel 8 and 9
+- explain entire request lifecycle in laravel
+- what are in built packages used by laravel- what is 02auth and passport
+- what are facades
+- what do you mean by object in facades
+- what is throttling
+- what aree events? can you give an example
+- what is channel.php and console.php file in routes folder
+
+-- SQL
+- what are different storage engines (innodb, myisam)
+- what is the difference between innodb and myisam db (MyISAM does not support foreign keys , not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done, MYISAM supports Table-level Locking, MyISAM designed for need of speed)
+- what is normalization (the process of organizing data in a database.his includes creating tables and establishing relationships between those tables according to rules designed both to protect the data and to make the database more flexible by eliminating redundancy and inconsistent dependency.)
+- ddl dml dcl in sql (DML commands are used to modify the database.)
+- different command of ddl,dml,dcl (ddl - create,alter,drop , dml - insert,delete,update,select, dcl- grant,revoke,deny).
+- sql to fetch third highest salary of an employee
+- what are aggregate functions
+
+- what is ddos attack (Distributed denial of service - attack is a malicious attempt to disrupt the normal traffic of a targeted server, service or network by overwhelming the target or its surrounding infrastructure with a flood of Internet traffic )
+- what is owasp ( Open Web Application Security Project - is a nonprofit foundation that works to improve the security of software. )
+
+-- GIT
+- how do you merge git requests
+- what is the difference between git fetch and git pull
+- what is the the staging branch in git
+- where is the data stored when we commit changes
+- what is the command to revert back the pushed changes (git revert <commit hash> . You can undo the latest commit with git reset --soft HEAD^ too. But if you already pushed your changes a revert could be a better option)
