@@ -1,0 +1,397 @@
+Laravel
+    - Laravel is a PHP framework with expressive, elegant syntax. Laravel is the best choice for building modern, full-stack web applications. Laravel gives you robust tools for dependency injection, queues, real-time events, blade templating,and many more.
+
+
+Dependency Injection
+    
+    - Service Container
+        service container is a powerful tool for managing class dependencies and performing dependency injection. Dependency injection is a fancy phrase that essentially means this: class dependencies are "injected" into the class via the constructor or, in some cases, "setter" methods.
+        e.g - repository is injected to retrieve users detail from a data source (app/repository/userrepository.php)
+        
+        Many of the classes we build in Laravel application receive their dependencies automatically via the container, including controllers, event listeners,
+        middleware, and more. Additionally, we may type-hint dependencies in the handle method of queued jobs.
+
+        we might type-hint the Illuminate\Http\Request object on our route definition so that we can easily access the current request.
+
+        e.g
+        use Illuminate\Http\Request;
+        Route::get('/', function (Request $request) {});
+
+        Almost all of your service container bindings will be registered within service providers.
+        There is no need to bind classes into the container if they do not depend on any interfaces. The container does not need to be instructed on how to build these objects, since it can automatically resolve these objects using reflection.
+
+        The service container fires an event each time it resolves an object. You may listen to this event using the resolving method
+            use App\Services\Transistor;
+            
+            $this->app->resolving(Transistor::class, function ($transistor, $app) {
+                // Called when container resolves objects of type "Transistor"...
+            });
+            
+            $this->app->resolving(function ($object, $app) {
+                // Called when container resolves object of any type...
+            });
+
+        Binding
+        The singleton method binds a class or interface into the container that should only be resolved one time.
+            use App\Services\Transistor;
+            use App\Services\PodcastParser;
+            
+            $this->app->singleton(Transistor::class, function ($app) {
+                return new Transistor($app->make(PodcastParser::class));
+            });
+
+        The scoped method binds a class or interface into the container that should only be resolved one time within a given Laravel request / job lifecycle.
+        the scoped method will be flushed whenever the Laravel application starts a new "lifecycle", such as when a Laravel queue worker processes a new job.
+            use App\Services\Transistor;
+            use App\Services\PodcastParser;
+            
+            $this->app->scoped(Transistor::class, function ($app) {
+                return new Transistor($app->make(PodcastParser::class));
+            });
+
+        You may also bind an existing object instance into the container using the instance method. The given instance will always be returned on subsequent calls into the container
+            use App\Services\Transistor;
+            use App\Services\PodcastParser;
+            
+            $service = new Transistor(new PodcastParser);
+            
+            $this->app->instance(Transistor::class, $service);
+
+
+        If some of your class' dependencies are not resolvable via the container, you may inject them by passing them as an associative array into the makeWith method. For example, we may manually pass the $id constructor argument required by the Transistor service:
+
+            use App\Services\Transistor;
+            
+            $transistor = $this->app->makeWith(Transistor::class, ['id' => 1]);
+
+        If you are outside of a service provider in a location of your code that does not have access to the $app variable, you may use the App facade or the app helper to resolve a class instance from the container:
+
+            use App\Services\Transistor;
+            use Illuminate\Support\Facades\App;
+            
+            $transistor = App::make(Transistor::class);
+            
+            $transistor = app(Transistor::class);
+
+Repositories in laravel
+    - Helps keeping the code organized and avoiding duplication, as database-related logic is kept in one place. While this benefit is not immediately apparent in small
+      projects, it becomes more observable in large-scale projects which have to be maintained for many years.
+    - Steps to Create the Repository
+        - let's define an interface to specify all the methods which the repository must declare.Instead of relying directly on the repository class, our controller will depend on the interface. This makes our code flexible because, if it's become necessary to make a change in the future, the controller remains unaffected. For instance, if we decided to outsource order management to a 3rd party application, we can build a new module that conforms to OrderRepositoryInterface's signature and swap the binding declarations and our controller will work exactly as expected - without touching a single line of code in the controller.
+        1. create a new folder called Interfaces and add below code.
+            <?php
+
+            namespace App\Interfaces;
+
+            interface OrderRepositoryInterface 
+            {
+                public function getAllOrders();
+                public function getOrderById($orderId);
+            }
+
+        2. create a new folder called Repositories and add below code.
+        
+            <?php
+
+            namespace App\Repositories;
+
+            use App\Interfaces\OrderRepositoryInterface;
+            use App\Models\Order;
+
+            class OrderRepository implements OrderRepositoryInterface 
+            {
+                public function getAllOrders() 
+                {
+                    return Order::all();
+                }
+
+                public function getOrderById($orderId) 
+                {
+                    return Order::findOrFail($orderId);
+                }
+            }
+
+            Apart from the flexibility provided by the interface, encapsulating queries in this manner has the added advantage that we don't have to duplicate queries throughout the application.
+            If, in the future, we decide to retrieve only unfulfilled orders in the getAllOrders() function, we would only have to make a change in one place instead of tracking down all the places where Order::all() is declared.
+
+        3. our repository in place, let's add some code to our controller.
+            <?php
+
+            namespace App\Http\Controllers;
+
+            use App\Interfaces\OrderRepositoryInterface;
+            use Illuminate\Http\JsonResponse;
+            use Illuminate\Http\Request;
+            use Illuminate\Http\Response;
+
+            class OrderController extends Controller 
+            {
+                private OrderRepositoryInterface $orderRepository;
+
+                public function __construct(OrderRepositoryInterface $orderRepository) 
+                {
+                    $this->orderRepository = $orderRepository;
+                }
+
+                public function index(): JsonResponse 
+                {
+                    return response()->json([
+                        'data' => $this->orderRepository->getAllOrders()
+                    ]);
+                }
+
+                public function show(Request $request): JsonResponse 
+                {
+                    $orderId = $request->route('id');
+
+                    return response()->json([
+                        'data' => $this->orderRepository->getOrderById($orderId)
+                    ]);
+                }
+            }
+
+            The code injects an OrderRepositoryInterface instance via the constructor and uses the relevant object's methods in each controller method.
+            First, within the index() method, it calls the getAllOrders() method defined in the orderRepository to retrieve the list of orders and returns a response in JSON format.
+
+        4. Bind the interface and the implementation
+            The last thing we need to do is bind OrderRepository to OrderRepositoryInterface in Laravel's Service Container; we do this via a Service Provider. Create one using the following command.
+                php artisan make:provider RepositoryServiceProvider
+
+            Open app/Providers/RepositoryServiceProvider.php and update the register function
+            public function register() 
+            {
+                $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+            }
+        
+        5. Finally, add the new Service Provider to the providers array in config/app.php.
+            'providers' => [
+                // ...other declared providers
+                App\Providers\RepositoryServiceProvider::class,
+            ];
+
+    - reference : https://www.twilio.com/blog/repository-pattern-in-laravel-application
+
+
+Blade
+    - Blade is the simple & powerful templating engine that is included with Laravel. Blade templates are compiled into plain PHP code and cached until they are modified, meaning Blade adds essentially zero overhead to your application. Blade template files use the .blade.php file extension and are typically stored in the resources/views directory.
+    Blade views may be returned from routes or controllers using the global view helper also data may be passed to the Blade view using the view helper's second argument:
+    e.g
+    Route::get('/', function () {
+        return view('greeting', ['name' => 'Finn']);
+    });
+    Blade's {{ }} echo statements are automatically sent through PHP's htmlspecialchars function to prevent XSS attacks.
+    If you do not want your data to be escaped, you may use the following syntax: Hello, {!! $name !!}.
+
+Blade Directives
+    - USe to control structures, such as conditional statements and loops.
+    - 1. Conditional directives
+            If Statements
+            You may construct if statements using the @if, @elseif, @else, and @endif directives. For convenience, Blade also provides an @unless directive:
+            e.g
+                @unless (Auth::check())
+                    You are not signed in.
+                @endunless
+
+            @isset and @empty directives
+                @isset($records)
+                    // $records is defined and is not null...
+                @endisset
+                
+                @empty($records)
+                    // $records is "empty"...
+                @endempty
+
+    - 2. Authentication Directives
+        The @auth and @guest directives may be used to quickly determine if the current user is authenticated or is a guest
+        e.g
+            @auth
+                // The user is authenticated...
+            @endauth
+            
+            @guest
+                // The user is not authenticated...
+            @endguest
+        
+    - 3. Environment Directives
+            You may check if the application is running in the production environment using the @production directive Or, you may determine if the application is running in a specific environment using the @env directive
+            e.g
+                @production
+                    // Production specific content...
+                @endproduction
+
+                @env('staging')
+                    // The application is running in "staging"...
+                @endenv
+                
+                @env(['staging', 'production'])
+                    // The application is running in "staging" or "production"...
+                @endenv
+
+    - 4. Section Directives
+            You may determine if a template inheritance section has content using the @hasSection directive also You may use the sectionMissing directive to determine if a section does not have content.
+            e.g
+                @hasSection('navigation')
+                    <div class="pull-right">
+                        @yield('navigation')
+                    </div>
+                
+                    <div class="clearfix"></div>
+                @endif
+
+                @sectionMissing('navigation')
+                    <div class="pull-right">
+                        @include('default-navigation')
+                    </div>
+                @endif
+
+        - 5. Switch Statements
+            Switch statements can be constructed using the @switch, @case, @break, @default and @endswitch directives.
+                @switch($i)
+                    @case(1)
+                        First case...
+                        @break
+                
+                    @case(2)
+                        Second case...
+                        @break
+                
+                    @default
+                        Default case...
+                @endswitch
+            
+        list of additional directives
+            1. @checked  <input type="checkbox" name="active" value="active" @checked(old('active', $user->active)) />
+            2. @selected <option value="{{ $version }}" @selected(old('version') == $version)>
+            3. @disabled <button type="submit" @disabled($errors->isNotEmpty())>Submit</button>
+            4. @readonly <input type="email" name="email" value="email@laravel.com" @readonly($user->isNotAdmin()) />
+            5. @required <input type="text" name="title" value="title" @required($user->isAdmin()) />
+            6. @include @include('shared.errors') // to include a blade files / sub view file
+            7. @includeIf @includeIf('view.name', ['status' => 'complete'])
+
+
+
+Eloquent
+    Eloquent, an object-relational mapper (ORM) that makes it easier to interact with our database. When using Eloquent, each database table has a corresponding "Model" that is used to interact with that table. In addition to retrieving records from the database table, Eloquent models allow you to insert, update, and delete records from the table as well.
+
+    e.g We may use the make:model Artisan command to generate a new model:
+        php artisan make:model Flight --migration --factory --seed --controller --resource --requests -crR --policy
+
+        # Shortcut to generate a model, migration, factory, seeder, policy, controller, and form requests...
+        php artisan make:model Flight --all
+
+        # Generate a pivot model...
+        php artisan make:model Flight --pivot
+        
+Model
+    Models generated by the make:model command will be placed in the app/Models directory.
+    e.g
+        <?php
+ 
+        namespace App\Models;
+         
+        use Illuminate\Database\Eloquent\Model;
+         
+        class Flight extends Model
+        {
+            #The table associated with the model.
+            protected $table = 'my_flights';
+
+            #The primary key associated with the table.
+            protected $primaryKey = 'flight_id';
+
+            #Indicates if the model's ID is auto-incrementing(Primary key).
+            public $incrementing = false;
+
+            #The data type of the auto-incrementing ID(Primary key).
+            protected $keyType = 'string';
+
+            #Indicates if the model should be timestamped.
+            public $timestamps = false;
+
+            #The storage format of the model's date columns.
+            protected $dateFormat = 'U';
+
+            #The database connection that should be used by the model.
+            protected $connection = 'sqlite';
+
+            #The model's default values for attributes.
+            protected $attributes = [
+                'delayed' => false,
+            ];
+
+            #The database connection that should be used by the model.
+            protected $connection = 'sqlite';
+
+            #The database connection that should be used by the model.
+            protected $connection = 'sqlite';
+
+            #The database connection that should be used by the model.
+            protected $connection = 'sqlite';
+
+
+
+        }
+
+
+XSS attack
+    - attackers look for vulnerabilities on a website that will let them inject malicious scripts into the website. Once attackers get their scripts injected, they can control the behavior of the victim’s site and steal user data.
+    A simple XSS attack can occur on a vulnerable website that accepts user input via a GET parameter and displays the data on the webpage.
+
+Prevention from XSS attack
+    1. By passing the user input through PHP’s htmlspecialchars() function. Doing so escapes HTML tags and any scripts, causing the page to render the user input as plain text.
+    e.g
+    echo "Hello user, your current country is " . $_GET['country']; // vulnerable
+    echo "Hello user, your current country is" + htmlspecialchars($_GET['country']); //non-vulnerable
+
+
+    2. You can also prevent XSS attacks on a Laravel site using middleware.
+    e.g
+    public function handle($request, Closure $next)
+    {
+        $userInput = $request->all();
+        array_walk_recursive($userInput, function (&$userInput) {
+            $userInput = strip_tags($userInput);
+        });
+        $request->merge($userInput);
+        return $next($request);
+    }
+
+    make use of middleware in route 
+    e.g
+    Route::middleware('XSS')->group(function() {
+        Route::get('/product', 'ProductController@index');
+    });
+
+
+SQL 
+Fetch nth highest salry from table 
+    SELECT DISTINCT `salary` FROM `employees` ORDER BY `salary` DESC LIMIT 1 OFFSET 1;
+    // limit 1 - will fetch only 1 record
+    // offset 1 will discard the starting numbers of row mentioned here 1 row will be discarded and this will fetch 2nd highest salary employee
+
+    -- Return 3rd highest salary with no regards of same salary. i.e. Brian Kernighan
+    SELECT * FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2;
+
+    -- Return 3rd highest salary with distincation. Can return multiple rows matched.
+    SELECT *
+    FROM `employee`
+    WHERE
+        `Salary` = (SELECT DISTINCT `Salary`
+            FROM `employee`
+            ORDER BY `salary` DESC
+         LIMIT 1 OFFSET 2
+         )
+    ;
+
+    -- Return 3rd highest salary with distincation. Limiting to 1 result.
+    SELECT *
+    FROM `employee`
+    WHERE
+        `Salary` = (SELECT DISTINCT `Salary`
+            FROM `employee`
+            ORDER BY `salary` DESC
+         LIMIT 1 OFFSET 2
+         )
+    LIMIT 1
+    ;
+

@@ -1,0 +1,460 @@
+Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr software engineer role :
+-- LARAVEL
+- what is middleware
+    Middleware provide a convenient mechanism for inspecting and filtering HTTP requests entering our application. For example, Laravel includes a middleware that verifies the user of our application is authenticated or not. If the user is not authenticated, the middleware will redirect the user to our application's login screen. However, if the user is authenticated, the middleware will allow the request to proceed further into the application.
+    
+    Middleware can be written to perform a variety of tasks besides authentication. For example, a logging middleware might log all incoming requests to your application.All of these middleware are located in the app/Http/Middleware directory.
+
+    A middleware can perform some task before or after the request is handled by the application.
+
+    Global Middleware
+    If we want a middleware to run during every HTTP request of our application, list the middleware class in the $middleware property of our app/Http/Kernel.php class.
+
+
+- what is example set for middleware
+    For example, a logging middleware might log all incoming requests to your application.
+    a middleware that verifies the user of our application is authenticated or not.
+
+- what is csrf token used for
+    Cross-site request forgery (CSRF) are a type of malicious exploit whereby unauthorized commands are performed on behalf of an authenticated user.
+
+- what is session
+    sessions provide a way to store information about the user across multiple requests.
+    session configuration file is stored at config/session.php.
+    By default, Laravel is configured to use the file session driver, which will work well for many applications. If your application will be load balanced across multiple web servers, you should choose a centralized store that all servers can access, such as Redis or a database.
+    The session driver configuration option defines where session data will be stored for each request.
+    - driver options for storing sessions
+        file - sessions are stored in storage/framework/sessions.
+        cookie - sessions are stored in secure, encrypted cookies.
+        database - sessions are stored in a relational database.
+        memcached / redis - sessions are stored in one of these fast, cache based stores.
+        dynamodb - sessions are stored in AWS DynamoDB.
+        array - sessions are stored in a PHP array and will not be persisted.
+
+    - Retrieving data
+        There are two primary ways of working with session data in Laravel: the global session helper and via a Request instance.
+        1. the session via a Request instance, which can be type-hinted on a route closure or controller method. 
+        E.g 
+            $value = $request->session()->get('key');
+            $value = $request->session()->get('key', 'default');
+ 
+            $value = $request->session()->get('key', function () {
+                return 'default';
+            });
+
+        2. the global session PHP function to retrieve and store data in the session. When the session helper is called with a single, string argument, it will return the value of that session key. When the helper is called with an array of key / value pairs, those values will be stored in the session
+        
+        Retrieve a piece of data from the session...
+            $value = session('key');
+         
+            // Specifying a default value...
+            $value = session('key', 'default');
+         
+            // Store a piece of data in the session...
+            session(['key' => 'value']);
+
+            retrieve all the data in the session
+            E.g
+                $data = $request->session()->all();
+
+            To determine if an item is present in the session, you may use the has method. The has method returns true if the item is present and is not null
+            E.g
+                if ($request->session()->has('users')) {}
+            To determine if an item is present in the session, even if its value is null, you may use the exists method
+            E.g
+                if ($request->session()->exists('users')) {}
+            To determine if an item is not present in the session, you may use the missing method. The missing method returns true if the item is not present
+            E.g
+                if ($request->session()->missing('users')) {}
+
+        Storing Data in session
+            To store data in the session, you will typically use the request instance's put method or the global session helper
+            E.g
+                // Via a request instance...
+                $request->session()->put('key', 'value');
+                 
+                // Via the global "session" helper...
+                session(['key' => 'value']);
+
+            Pushing To Array Session Values
+                The push method may be used to push a new value onto a session value that is an array. For example, if the user.teams key contains an array of team names, you may push a new value onto the array like
+                E.g $request->session()->push('user.teams', 'developers');
+
+        Retrieving & Deleting An Item
+            The pull method will retrieve and delete an item from the session in a single statement
+            E.g $value = $request->session()->pull('key', 'default');
+
+        Incrementing & Decrementing Session Values
+            $request->session()->increment('count');
+             
+            $request->session()->increment('count', $incrementBy = 2);
+             
+            $request->session()->decrement('count');
+             
+            $request->session()->decrement('count', $decrementBy = 2);
+
+        Flash Data
+            Sometimes you may wish to store items in the session for the next request. You may do so using the flash method. Data stored in the session using this method will be available immediately and during the subsequent HTTP request.
+            E.g $request->session()->flash('status', 'Task was successful!');
+
+            If you need to persist your flash data for several requests, you may use the reflash method, which will keep all of the flash data for an additional request. If you only need to keep specific flash data, you may use the keep method
+            E.g
+                $request->session()->reflash();
+                $request->session()->keep(['username', 'email']);
+
+            To persist your flash data only for the current request, you may use the now method:
+            E.g $request->session()->now('status', 'Task was successful!');
+
+        Deleting Data
+            The forget method will remove a piece of data from the session. If you would like to remove all data from the session, you may use the flush method:
+            E.g // Forget a single key...
+                $request->session()->forget('name');
+                 
+                // Forget multiple keys...
+                $request->session()->forget(['name', 'status']);
+                 
+                $request->session()->flush();
+
+            Regenerating the session ID is often done in order to prevent malicious users from exploiting a session fixation attack on your application.
+            E.g $request->session()->regenerate();
+
+            If you need to regenerate the session ID and remove all data from the session in a single statement, you may use the invalidate method
+            E.g $request->session()->invalidate();
+
+
+- what does http kernel file hold (application's global HTTP middleware stack) console/kernel file the application's command schedule.
+    The incoming request is sent to either the HTTP kernel or the console kernel, depending on the type of request that is entering the application. These two kernels serve as the central location that all requests flow through.The HTTP kernel extends the Illuminate\Foundation\Http\Kernel class, which defines an array of bootstrappers that will be run before the request is executed. These bootstrappers configure error handling, configure logging, detect the application environment, and perform other tasks that need to be done before the request is actually handled.The HTTP kernel also defines a list of HTTP middleware that all requests must pass through before being handled by the application. These middleware handle reading and writing the HTTP session, determining if the application is in maintenance mode, verifying the CSRF token, and more.
+    The method signature for the HTTP kernel's handle method is quite simple: it receives a Request and returns a Response. Think of the kernel as being a big black box that represents your entire application. Feed it HTTP requests and it will return HTTP responses.
+
+- what is authorization and authentication (difference between both)
+    Authentication (to verify a user's credentials and authenticate the user)
+        how authentication works - When using a web browser, a user will provide their username and password via a login form. If these credentials are correct, the application will store information about the authenticated user in the user's session. A cookie issued to the browser contains the session ID so that subsequent requests to the application can associate the user with the correct session. After the session cookie is received, the application will retrieve the session data based on the session ID, note that the authentication information has been stored in the session, and will consider the user as "authenticated".
+        When a remote service needs to authenticate to access an API, cookies are not typically used for authentication because there is no web browser. Instead, the remote service sends an API token to the API on each request. The application may validate the incoming token against a table of valid API tokens and "authenticate" the request as being performed by the user associated with that API token.
+        Laravel provides two optional packages to assist you in managing API tokens and authenticating requests made with API tokens: Passport and Sanctum.
+
+        Laravel's authentication facilities are made up of "guards" and "providers". Guards define how users are authenticated for each request. For example, Laravel ships with a session guard which maintains state using session storage and cookies.
+        Providers define how users are retrieved from your persistent storage. Laravel ships with support for retrieving users using Eloquent and the database query builder. Your application's authentication configuration file is located at config/auth.php.
+        We may access the authenticated user via the Auth facade's user method
+        E.g
+            use Illuminate\Support\Facades\Auth;
+            
+            // Retrieve the currently authenticated user...
+            $user = Auth::user();
+            
+            // Retrieve the currently authenticated user's ID...
+            $id = Auth::id();
+
+            Determining If The Current User Is Authenticated
+            use Illuminate\Support\Facades\Auth;
+            
+            if (Auth::check()) {
+                // The user is logged in...
+            }
+
+            When the auth middleware detects an unauthenticated user, it will redirect the user to the login named route. You may modify this behavior by updating the redirectTo function in your application's app/Http/Middleware/Authenticate.php file:
+            /**
+            * Get the path the user should be redirected to.
+            *
+            * @param  \Illuminate\Http\Request  $request
+            * @return string
+            */
+            protected function redirectTo($request)
+            {
+                return route('login');
+            }
+    
+    Authorization (provides a simple way to authorize user actions against a given resource.)
+         even though a user is authenticated, they may not be authorized to update or delete certain Eloquent models or database records managed by your application.Laravel's authorization features provide an easy, organized way of managing these types of authorization checks. Laravel provides two primary ways of authorizing actions: gates and policies. Think of gates and policies like routes and controllers. Gates provide a simple, closure-based approach to authorization while policies, like controllers, group logic around a particular model or resource.
+
+        Gates
+            Gates are simply closures that determine if a user is authorized to perform a given action. Typically, gates are defined within the boot method of the App\Providers\AuthServiceProvider class using the Gate facade. Gates always receive a user instance as their first argument and may optionally receive additional arguments such as a relevant Eloquent model.
+            E.g to determine if a user can update a given App\Models\Post model. The gate will accomplish this by comparing the user's id against the user_id of the user that created the post
+                use App\Models\Post;
+                use App\Models\User;
+                use Illuminate\Support\Facades\Gate;
+                
+                /**
+                * Register any authentication / authorization services.
+                *
+                * @return void
+                */
+                public function boot()
+                {
+                    $this->registerPolicies();
+                
+                    Gate::define('update-post', function (User $user, Post $post) {
+                        return $user->id === $post->user_id;
+                    });
+                }
+
+                To authorize an action using gates, you should use the allows or denies methods provided by the Gate facade.
+                    <?php
+ 
+                    namespace App\Http\Controllers;
+                    
+                    use App\Http\Controllers\Controller;
+                    use App\Models\Post;
+                    use Illuminate\Http\Request;
+                    use Illuminate\Support\Facades\Gate;
+                    
+                    class PostController extends Controller
+                    {
+                        /**
+                        * Update the given post.
+                        *
+                        * @param  \Illuminate\Http\Request  $request
+                        * @param  \App\Models\Post  $post
+                        * @return \Illuminate\Http\Response
+                        */
+                        public function update(Request $request, Post $post)
+                        {
+                            if (! Gate::allows('update-post', $post)) {
+                                abort(403);
+                            }
+                    
+                            // Update the post...
+                        }
+                    }
+        Policies 
+            Policies are classes that organize authorization logic around a particular model or resource. For example, if your application is a blog, you may have a App\Models\Post model and a corresponding App\Policies\PostPolicy to authorize user actions such as creating or updating posts. Once the policy class has been created, it needs to be registered. Registering policies is how we can inform Laravel which policy to use when authorizing actions against a given model type. The App\Providers\AuthServiceProvider included with fresh Laravel applications contains a policies property which maps your Eloquent models to their corresponding policies. Registering a policy will instruct Laravel which policy to utilize when authorizing actions against a given Eloquent model.
+            E.g 
+                Once the policy class has been registered, you may add methods for each action it authorizes. For example, let's define an update method on our PostPolicy which determines if a given App\Models\User can update a given App\Models\Post instance.
+                <?php
+ 
+                    namespace App\Policies;
+                    
+                    use App\Models\Post;
+                    use App\Models\User;
+                    
+                    class PostPolicy
+                    {
+                        /**
+                        * Determine if the given post can be updated by the user.
+                        *
+                        * @param  \App\Models\User  $user
+                        * @param  \App\Models\Post  $post
+                        * @return bool
+                        */
+                        public function update(User $user, Post $post)
+                        {
+                            return $user->id === $post->user_id;
+                        }
+                    }
+
+        NOTE : By default, all gates and policies automatically return false if the incoming HTTP request was not initiated by an authenticated user.
+
+
+- what is eloquent
+    Eloquent is an object-relational mapper (ORM) that makes it easy to interact with our database. When using Eloquent, each database table has a corresponding "Model" that is used to interact with that table. In addition to retrieving records from the database table, Eloquent models allow you us to insert, update, and delete records from the table as well.
+
+    A mass assignment vulnerability occurs when a user passes an unexpected HTTP request field and that field changes a column in your database that you did not expect. For example, a malicious user might send an is_admin parameter through an HTTP request, which is then passed to your model's create method, allowing the user to escalate themselves to an administrator.
+
+    The destroy method loads each model individually and calls the delete method so that the deleting and deleted events are properly dispatched for each model.
+
+    Eloquent models dispatch several events, allowing you to hook into the following moments in a model's lifecycle: retrieved, creating, created, updating, updated, saving, saved, deleting, deleted, trashed, forceDeleted, restoring, restored, and replicating.
+    To start listening to model events, define a $dispatchesEvents property on your Eloquent model.
+    E.g 
+        /**
+        * The event map for the model.
+        *
+        * @var array
+        */
+        protected $dispatchesEvents = [
+            'saved' => UserSaved::class,
+            'deleted' => UserDeleted::class,
+        ];
+
+    NOTE : When issuing a mass update or delete query via Eloquent, the saved, updated, deleting, and deleted model events will not be dispatched for the affected models. This is because the models are never actually retrieved when performing mass updates or deletes.
+
+    You may occasionally need to temporarily "mute" all events fired by a model. You may achieve this using the withoutEvents method. The withoutEvents method accepts a closure as its only argument. Any code executed within this closure will not dispatch model events, and any value returned by the closure will be returned by the withoutEvents method
+        use App\Models\User;
+    
+        $user = User::withoutEvents(function () {
+            User::findOrFail(1)->delete();
+        
+            return User::find(2);
+        });
+    
+    Sometimes you may wish to "save" a given model without dispatching any events. You may accomplish this using the saveQuietly method
+        $user = User::findOrFail(1);
+        $user->name = 'Victoria Faith';
+        $user->saveQuietly();
+    
+- what are pros and cons of using eloquent. When will you use eloquent and raw db querying.
+    1. Renaming a table name is easy with eloquent as we just need to add/modify $table property in our model file.
+    2. Readability - if the query gets complicated it harded to understand the raw queries as we need to manage multiple join query.
+    3. raw query is musch faster comparitive 50% (when loading a relationships data as well)
+        E.g $products = Product::with('category')->get(); // takes 1000ms becuase we have query for eager loading relationships and also have select query for products
+            $products = DB::table('products')->join('product_categories','products.product_category_id','=','product_categories.id')->get(); // take 670ms because it has only 1 query i.e select and inner join
+    4. Eloquent provides additional functions that can be performed after the result is fetched like updating the field in loop or deleting the model. we can fetch the relational property and append custom text to it, soft deleting the records.
+    5.Accessor -  we can fetch the data via accessors e.g for the field that returns percetage value, we can define the accessor in model and just loop the result and display the percentage value.
+
+
+- current version of laravel
+    Laravel - 9.X
+    NOTE : Laravel v10 is the next major version of Laravel, planned for release on February 7th, 2023.
+
+
+- difference between laravel 8 and 9
+    Accessor & Mutator
+        In Laravel 9.x you may define an accessor and mutator using a single, non-prefixed method by type-hinting a return type of Illuminate\Database\Eloquent\Casts\Attribut
+        
+        use Illuminate\Database\Eloquent\Casts\Attribute;
+        public function name(): Attribute
+        {
+            return new Attribute(
+                get: fn ($value) => strtoupper($value),
+                set: fn ($value) => $value,
+            );
+        }
+
+    Controller Route Groups
+        You may now use the controller method to define the common controller for all of the routes within the group. Then, when defining the routes, you only need to provide the controller method that they invoke:
+            use App\Http\Controllers\OrderController;
+            Route::controller(OrderController::class)->group(function () {
+                Route::get('/orders/{id}', 'show');
+                Route::post('/orders', 'store');
+            });
+    
+    Rendering Inline Blade Templates
+        The render method accepts the Blade template string and an optional array of data to provide to the template
+        use Illuminate\Support\Facades\Blade;
+        return Blade::render('Hello, {{ $name }}', ['name' => 'Julian Bashir']);
+
+    Slot Name Shortcut
+        slot names were provided using a name attribute on the x-slot tag
+        <x-alert>
+            <x-slot name="title">
+                Server Error
+            </x-slot>
+            <strong>Whoops!</strong> Something went wrong!
+        </x-alert>
+
+        Laravel 9.x, you may specify the slot's name using a convenient, shorter syntax
+            <x-slot:title>Server Error</x-slot>
+        
+    Checked / Selected Blade Directives
+        The @checked directive to easily indicate if a given HTML checkbox input is "checked". This directive will echo checked if the provided condition evaluates to true
+        <input type="checkbox" name="active" value="active" @checked(old('active', $user->active)) />
+        The @selected directive may be used to indicate if a given select option should be "selected".
+            <select name="version">
+                @foreach ($product->versions as $version)
+                    <option value="{{ $version }}" @selected(old('version') == $version) @checked(old('active', $user->active))>
+                        {{ $version }}
+                    </option>
+                @endforeach
+            </select>
+
+    Helper Functions
+        The str function returns a new Illuminate\Support\Stringable instance for the given string.
+        $string = str('Taylor')->append(' Otwell');
+
+        The to_route function generates a redirect HTTP response for a given named route, providing an expressive way to redirect to named routes from your routes and controllers
+        return to_route('users.show', ['user' => 1]);
+
+
+- explain entire request lifecycle in laravel
+    1. First step 
+        The entry point for all requests to a Laravel application is the public/index.php file. All requests are directed to this file by your web server (Apache / Nginx) configuration. The index.php file doesn't contain much code. Rather, it is a starting point for loading the rest of the framework.
+        The index.php file loads the Composer generated autoloader definition, and then retrieves an instance of the Laravel application from bootstrap/app.php. The first action taken by Laravel itself is to create an instance of the application / service container.
+
+    2. HTTP / Console Kernels
+        Next, the incoming request is sent to either the HTTP kernel or the console kernel, depending on the type of request that is entering the application. These two kernels serve as the central location that all requests flow through. For now, let's just focus on the HTTP kernel, which is located in app/Http/Kernel.php.
+        The HTTP kernel extends the Illuminate\Foundation\Http\Kernel class, which defines an array of bootstrappers that will be run before the request is executed. These bootstrappers configure error handling, configure logging, detect the application environment, and perform other tasks that need to be done before the request is actually handled.
+        The HTTP kernel also defines a list of HTTP middleware that all requests must pass through before being handled by the application. These middleware handle reading and writing the HTTP session, determining if the application is in maintenance mode, verifying the CSRF token, and more.
+        The method signature for the HTTP kernel's handle method is quite simple: it receives a Request and returns a Response.
+
+    3. Service Providers
+        One of the most important kernel bootstrapping actions is loading the service providers for your application. Service providers are responsible for bootstrapping all of the framework's various components, such as the database, queue, validation, and routing components. All of the service providers for the application are configured in the config/app.php configuration file's providers array.
+        
+        Laravel will iterate through this list of providers and instantiate each of them. After instantiating the providers, the register method will be called on all of the providers. Then, once all of the providers have been registered, the boot method will be called on each provider. This is so service providers may depend on every container binding being registered and available by the time their boot method is executed.
+
+    4. Routing
+        One of the most important service providers in your application is the App\Providers\RouteServiceProvider. This service provider loads the route files contained within your application's routes directory.
+        Once the application has been bootstrapped and all service providers have been registered, the Request will be handed off to the router for dispatching. The router will dispatch the request to a route or controller, as well as run any route specific middleware.
+        Middleware provide a convenient mechanism for filtering or examining HTTP requests entering your application.
+        For example, Laravel includes a middleware that verifies if the user of your application is authenticated. If the user is not authenticated, the middleware will redirect the user to the login screen. However, if the user is authenticated, the middleware will allow the request to proceed further into the application. Some middleware are assigned to all routes within the application, like those defined in the $middleware property of your HTTP kernel, while some are only assigned to specific routes or route groups.
+        If the request passes through all of the matched route's assigned middleware, the route or controller method will be executed and the response returned by the route or controller method will be sent back through the route's chain of middleware.
+
+    5. Finishing Up
+        Once the route or controller method returns a response, the response will travel back outward through the route's middleware, giving the application a chance to modify or examine the outgoing response.
+
+        Finally, once the response travels back through the middleware, the HTTP kernel's handle method returns the response object and the index.php file calls the send method on the returned response. The send method sends the response content to the user's web browser. We've finished our journey through the entire Laravel request lifecycle!
+
+    6. Focus On Service Providers
+        Service providers are truly the key to bootstrapping a Laravel application. The application instance is created, the service providers are registered, and the request is handed to the bootstrapped application. It's really that simple! application's default service providers are stored in the app/Providers directory.
+        By default, the AppServiceProvider is fairly empty. This provider is a great place to add your application's own bootstrapping and service container bindings.
+
+
+- what are in built packages used by laravel- what is 02auth and passport
+    - tinker
+    - phpunit
+    - faker
+
+    
+- what are facades
+    A facade is a class that provides access to an object from the container. The machinery that makes this work is in the Facade class. Laravel's facades, and any custom facades you create, will extend the base Illuminate\Support\Facades\Facade class.
+    Facades provide a "static" interface to classes that are available in the application's service container. All of Laravel's facades are defined in the Illuminate\Support\Facades namespace. So, we can easily access a facade like
+        use Illuminate\Support\Facades\Cache;
+        use Illuminate\Support\Facades\Route;
+        
+        Route::get('/cache', function () {
+            return Cache::get('key');
+        });
+
+
+- what do you mean by object in facades
+- what is throttling
+- what aree events? can you give an example
+- what is channel.php and console.php file in routes folder
+
+-- SQL
+- what are different storage engines (innodb, myisam)
+- what is the difference between innodb and myisam db (MyISAM does not support foreign keys , not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done, MYISAM supports Table-level Locking, MyISAM designed for need of speed)
+- what is normalization (the process of organizing data in a database.his includes creating tables and establishing relationships between those tables according to rules designed both to protect the data and to make the database more flexible by eliminating redundancy and inconsistent dependency.)
+- ddl dml dcl in sql (DML commands are used to modify the database.)
+- different command of ddl,dml,dcl (ddl - create,alter,drop , dml - insert,delete,update,select, dcl- grant,revoke,deny).
+- sql to fetch third highest salary of an employee
+    Solution :
+        SELECT DISTINCT `salary` FROM `employees` ORDER BY `salary` DESC LIMIT 1 OFFSET 1;
+        // limit 1 - will fetch only 1 record
+        // offset 1 will discard the starting numbers of row mentioned here 1 row will be discarded and this will fetch 2nd highest salary employee
+
+        -- Return 3rd highest salary with no regards of same salary. i.e. Brian Kernighan
+        SELECT * FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2;
+
+        -- Return 3rd highest salary with distincation. Can return multiple rows matched.
+        SELECT *
+        FROM `employee`
+        WHERE
+            `Salary` = (SELECT DISTINCT `Salary`
+                FROM `employee`
+                ORDER BY `salary` DESC
+            LIMIT 1 OFFSET 2
+            )
+        ;
+
+        -- Return 3rd highest salary with distincation. Limiting to 1 result.
+        SELECT *
+        FROM `employee`
+        WHERE
+            `Salary` = (SELECT DISTINCT `Salary`
+                FROM `employee`
+                ORDER BY `salary` DESC
+            LIMIT 1 OFFSET 2
+            )
+        LIMIT 1
+        ;
+
+
+- what are aggregate functions
+
+- what is ddos attack (Distributed denial of service - attack is a malicious attempt to disrupt the normal traffic of a targeted server, service or network by overwhelming the target or its surrounding infrastructure with a flood of Internet traffic )
+- what is owasp ( Open Web Application Security Project - is a nonprofit foundation that works to improve the security of software. )
+
+-- GIT
+- how do you merge git requests
+- what is the difference between git fetch and git pull
+- what is the the staging branch in git
+- where is the data stored when we commit changes
+- what is the command to revert back the pushed changes (git revert <commit hash> . You can undo the latest commit with git reset --soft HEAD^ too. But if you already pushed your changes a revert could be a better option)
