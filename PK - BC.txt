@@ -1,9 +1,13 @@
 Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr software engineer role :
 -- LARAVEL
 - what is middleware
-    Middleware provide a convenient mechanism for inspecting and filtering HTTP requests entering our application. For example, Laravel includes a middleware that verifies the user of our application is authenticated or not. If the user is not authenticated, the middleware will redirect the user to our application's login screen. However, if the user is authenticated, the middleware will allow the request to proceed further into the application.
+    Middleware provide a convenient mechanism for inspecting and filtering HTTP requests entering our application. 
+    For example, Laravel includes a middleware that verifies the user of our application is authenticated or not. 
+    If the user is not authenticated, the middleware will redirect the user to our application's login screen. 
+    However, if the user is authenticated, the middleware will allow the request to proceed further into the application.
     
-    Middleware can be written to perform a variety of tasks besides authentication. For example, a logging middleware might log all incoming requests to your application.All of these middleware are located in the app/Http/Middleware directory.
+    Middleware can be written to perform a variety of tasks besides authentication. 
+    For example, a logging middleware might log all incoming requests to your application. All of these middleware are located in the app/Http/Middleware directory.
 
     A middleware can perform some task before or after the request is handled by the application.
 
@@ -15,8 +19,10 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
     For example, a logging middleware might log all incoming requests to your application.
     a middleware that verifies the user of our application is authenticated or not.
 
+
 - what is csrf token used for
     Cross-site request forgery (CSRF) are a type of malicious exploit whereby unauthorized commands are performed on behalf of an authenticated user.
+
 
 - what is session
     sessions provide a way to store information about the user across multiple requests.
@@ -33,7 +39,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 
     - Retrieving data
         There are two primary ways of working with session data in Laravel: the global session helper and via a Request instance.
-        1. the session via a Request instance, which can be type-hinted on a route closure or controller method. 
+        1. The session via a Request instance, which can be type-hinted on a route closure or controller method. 
         E.g 
             $value = $request->session()->get('key');
             $value = $request->session()->get('key', 'default');
@@ -42,7 +48,9 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
                 return 'default';
             });
 
-        2. the global session PHP function to retrieve and store data in the session. When the session helper is called with a single, string argument, it will return the value of that session key. When the helper is called with an array of key / value pairs, those values will be stored in the session
+        2. The global session PHP function to retrieve and store data in the session. 
+            When the session helper is called with a single, string argument, it will return the value of that session key. 
+            When the helper is called with an array of key / value pairs, those values will be stored in the session
         
         Retrieve a piece of data from the session...
             $value = session('key');
@@ -123,12 +131,19 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 
 
 - what does http kernel file hold (application's global HTTP middleware stack) console/kernel file the application's command schedule.
-    The incoming request is sent to either the HTTP kernel or the console kernel, depending on the type of request that is entering the application. These two kernels serve as the central location that all requests flow through.The HTTP kernel extends the Illuminate\Foundation\Http\Kernel class, which defines an array of bootstrappers that will be run before the request is executed. These bootstrappers configure error handling, configure logging, detect the application environment, and perform other tasks that need to be done before the request is actually handled.The HTTP kernel also defines a list of HTTP middleware that all requests must pass through before being handled by the application. These middleware handle reading and writing the HTTP session, determining if the application is in maintenance mode, verifying the CSRF token, and more.
-    The method signature for the HTTP kernel's handle method is quite simple: it receives a Request and returns a Response. Think of the kernel as being a big black box that represents your entire application. Feed it HTTP requests and it will return HTTP responses.
+    The incoming request is sent to either the HTTP kernel or the console kernel, depending on the type of request that is entering the application. 
+    These two kernels serve as the central location that all requests flow through.The HTTP kernel extends the Illuminate\Foundation\Http\Kernel class, 
+    which defines an array of bootstrappers that will be run before the request is executed. These bootstrappers configure error handling, configure logging, 
+    detect the application environment, and perform other tasks that need to be done before the request is actually handled.
+    The HTTP kernel also defines a list of HTTP middleware that all requests must pass through before being handled by the application. 
+    These middleware handle reading and writing the HTTP session, determining if the application is in maintenance mode, verifying the CSRF token, and more.
+    The method signature for the HTTP kernel's handle method is quite simple: it receives a Request and returns a Response. 
+    Think of the kernel as being a big black box that represents your entire application. Feed it HTTP requests and it will return HTTP responses.
+
 
 - what is authorization and authentication (difference between both)
     Authentication (to verify a user's credentials and authenticate the user)
-        how authentication works - When using a web browser, a user will provide their username and password via a login form. If these credentials are correct, the application will store information about the authenticated user in the user's session. A cookie issued to the browser contains the session ID so that subsequent requests to the application can associate the user with the correct session. After the session cookie is received, the application will retrieve the session data based on the session ID, note that the authentication information has been stored in the session, and will consider the user as "authenticated".
+        How authentication works - When using a web browser, a user will provide their username and password via a login form. If these credentials are correct, the application will store information about the authenticated user in the user's session. A cookie issued to the browser contains the session ID so that subsequent requests to the application can associate the user with the correct session. After the session cookie is received, the application will retrieve the session data based on the session ID, note that the authentication information has been stored in the session, and will consider the user as "authenticated".
         When a remote service needs to authenticate to access an API, cookies are not typically used for authentication because there is no web browser. Instead, the remote service sends an API token to the API on each request. The application may validate the incoming token against a table of valid API tokens and "authenticate" the request as being performed by the user associated with that API token.
         Laravel provides two optional packages to assist you in managing API tokens and authenticating requests made with API tokens: Passport and Sanctum.
 
@@ -280,6 +295,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         $user->name = 'Victoria Faith';
         $user->saveQuietly();
     
+
 - what are pros and cons of using eloquent. When will you use eloquent and raw db querying.
     1. Renaming a table name is easy with eloquent as we just need to add/modify $table property in our model file.
     2. Readability - if the query gets complicated it harded to understand the raw queries as we need to manage multiple join query.
@@ -387,33 +403,148 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 
 
 - what are in built packages used by laravel- what is 02auth and passport
+    - Artisan
+        Artisan is the command line interface included with Laravel. Artisan exists at the root of your application as the artisan script and provides a number of helpful commands that can assist you while you build your application. To view a list of all available Artisan commands, you may use the list command:
+        php artisan list //displays all the command's availables.
+        php artisan help migrate //displays and describes the command's available arguments and options.
+
     - tinker
+        Laravel Tinker is a powerful REPL(Read Evaluate Print Loop) for the Laravel framework. All Laravel applications include Tinker by default. Tinker allows you to interact with your entire Laravel application on the command line, including your Eloquent models, jobs, events, and more. To enter the Tinker environment, run the tinker Artisan command: php artisan tinker
+
+
     - phpunit
-    - faker
+        By default, your application's tests directory contains two directories: Feature and Unit. Unit tests are tests that focus on a very small, isolated portion of your code. In fact, most unit tests probably focus on a single method. Tests within your "Unit" test directory do not boot your Laravel application and therefore are unable to access your application's database or other framework services.
+
+        Feature tests may test a larger portion of your code, including how several objects interact with each other or even a full HTTP request to a JSON endpoint. Generally, most of your tests should be feature tests. These types of tests provide the most confidence that your system as a whole is functioning as intended.
+
+        An ExampleTest.php file is provided in both the Feature and Unit test directories. After installing a new Laravel application, execute the vendor/bin/phpunit or php artisan test commands to run your tests.
 
     
 - what are facades
-    A facade is a class that provides access to an object from the container. The machinery that makes this work is in the Facade class. Laravel's facades, and any custom facades you create, will extend the base Illuminate\Support\Facades\Facade class.
-    Facades provide a "static" interface to classes that are available in the application's service container. All of Laravel's facades are defined in the Illuminate\Support\Facades namespace. So, we can easily access a facade like
+    A facade is a class that provides access to an object from the container. The machinery that makes this work is in the Facade class. Laravel's facades, and any custom facades you create, will extend the base Illuminate\Support\Facades\Facade class. Facades provide a "static" interface to classes that are available in the application's service container. All of Laravel's facades are defined in the Illuminate\Support\Facades namespace. So, we can easily access a facade like
         use Illuminate\Support\Facades\Cache;
         use Illuminate\Support\Facades\Route;
         
         Route::get('/cache', function () {
             return Cache::get('key');
         });
+    
+    The Facade base class makes use of the __callStatic() magic-method to defer calls from your facade to an object resolved from the container. Any calls we make using the facade will be passed to the underlying instance of Laravel's cache service. If we look at that Illuminate\Support\Facades\Cache class, you'll see that there is no static method get
+        class Cache extends Facade
+        {
+            /**
+            * Get the registered name of the component.
+            *
+            * @return string
+            */
+            protected static function getFacadeAccessor() { 
+                return 'cache'; // name of the service container binding.
+            }
+        }
+
+    Instead, the Cache facade extends the base Facade class and defines the method getFacadeAccessor(). This method's job is to return the name of a service container binding. When a user references any static method on the Cache facade, Laravel resolves the cache binding from the service container and runs the requested method (in this case, get) against that object.
 
 
 - what do you mean by object in facades
+    Instead, the Cache facade extends the base Facade class and defines the method getFacadeAccessor(). This method's job is to return the name of a service container binding. When a user references any static method on the Cache facade, Laravel resolves the cache binding from the service container and runs the requested method (in this case, get) against that object.
+
+
 - what is throttling
-- what aree events? can you give an example
+    Throttling is a mechanism were the user will not be able to login for one minute if they fail to provide the correct credentials after several attempts.
+    The throttling is unique to the user's username / email address and their IP address.
+
+
+- what are events? can you give an example
+    Laravel's events provide a simple observer pattern implementation, allowing you to subscribe and listen for various events that occur within your application. Event classes are typically stored in the app/Events directory, while their listeners are stored in app/Listeners.
+    Events serve as a great way to decouple various aspects of your application, since a single event can have multiple listeners that do not depend on each other. For example, you may wish to send a Slack notification to your user each time an order has shipped. Instead of coupling your order processing code to your Slack notification code, you can raise an App\Events\OrderShipped event which a listener can receive and use to dispatch a Slack notification.
+    Events can be implemented using observers on model at the time of creating, storing, updating & deleting the model record.
+
+
 - what is channel.php and console.php file in routes folder
+    The routes directory contains all of the route definitions for your application. By default, several route files are included with Laravel: web.php, api.php, console.php, and channels.php.
+
+    web.php - The web.php file contains routes that the RouteServiceProvider places in the web middleware group, which provides session state, CSRF protection, and cookie encryption. If your application does not offer a stateless, RESTful API then all your routes will most likely be defined in the web.php file.
+
+    api.php - The api.php file contains routes that the RouteServiceProvider places in the api middleware group. These routes are intended to be stateless, so requests entering the application through these routes are intended to be authenticated via tokens and will not have access to session state.
+
+    console.php - The console.php file is where you may define all of your closure based console commands. Each closure is bound to a command instance allowing a simple approach to interacting with each command's IO methods. It defines console based entry points (routes) into your application.
+
+    channels.php - The channels.php file is where you may register all of the event broadcasting channels that your application supports.
+
 
 -- SQL
 - what are different storage engines (innodb, myisam)
-- what is the difference between innodb and myisam db (MyISAM does not support foreign keys , not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done, MYISAM supports Table-level Locking, MyISAM designed for need of speed)
-- what is normalization (the process of organizing data in a database.his includes creating tables and establishing relationships between those tables according to rules designed both to protect the data and to make the database more flexible by eliminating redundancy and inconsistent dependency.)
-- ddl dml dcl in sql (DML commands are used to modify the database.)
-- different command of ddl,dml,dcl (ddl - create,alter,drop , dml - insert,delete,update,select, dcl- grant,revoke,deny).
+    A storage engine is a software module that a database management system uses to create, read, update data from a database. 
+    There are two types of storage engines in MySQL: transactional and non-transactional.
+
+    For MySQL 5.5 and later, the default storage engine is InnoDB. The default storage engine for MySQL prior to version 5.5 was MyISAM. 
+    Choosing the right storage engine is an important strategic decision, which will impact future development.
+    
+    InnoDB
+        The most widely used storage engine with transaction support.
+        It supports row-level locking, crash recovery and multi-version concurrency control.
+        It is the only engine which provides foreign key referential integrity constraint.
+    
+    MyISAM
+        MyISAM is the original storage engine.
+        It is a fast storage engine.
+        It does not support transactions. 
+        MyISAM provides table-level locking. 
+        It is used mostly in Web and data warehousing.
+
+    CSV - Stores data in Comma Separated Value format in a text file.
+
+
+- what is the difference between innodb and myisam db 
+    MyISAM does not support foreign keys , not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done.
+    MYISAM supports Table-level Locking, MyISAM designed for need of speed.
+
+
+- what is normalization
+    The process of organizing data in a database. This includes creating tables and establishing relationships between those tables according to rules designed both to protect the data and to make the database more flexible by eliminating redundancy and inconsistent dependency.
+    It is a multi-step process that sets the data into tabular form and removes the duplicated data from the relational tables.
+    Redundant data wastes disk space and creates maintenance problems. If data that exists in more than one place must be changed, the data must be changed in exactly the same way in all locations.
+    
+
+- What is ddl dml dcl in sql and it's commands
+    SQL(Structured Query Language) uses certain commands like Create, Drop, Insert, etc. to carry out the required tasks.
+    SQL commands are mainly categorized into five categories
+        DCL – Data Control Language         (Grant & Revoke)
+                Mainly deal with the rights, permissions, and other controls of the database system.
+                GRANT: This command gives users access privileges to the database.
+                REVOKE: This command withdraws the user’s access privileges given by using the GRANT command.
+
+        DDL – Data Definition Language      (Create, Drop, Alter, Comment, Rename & Truncate)
+                Used to define the database schema.
+                DDL is a set of SQL commands used to create, modify, and delete database structures but not data.
+                CREATE: This command is used to create the database or its objects (like table, index, function, views, store procedure, and triggers).
+                DROP: This command is used to delete objects from the database.
+                ALTER: This is used to alter the structure of the database.
+                TRUNCATE: This is used to remove all records from a table, including all spaces allocated for the records are removed.
+                COMMENT: This is used to add comments to the data dictionary.
+                RENAME: This is used to rename an object existing in the database.
+
+        DML – Data Manipulation Language    (Insert, Update, Delete & Lock)
+                Used for manipulation of data present in the database.
+                INSERT : It is used to insert data into a table.
+                UPDATE: It is used to update existing data within a table.
+                DELETE : It is used to delete records from a database table.
+                LOCK: Table control concurrency.
+
+        DQL – Data Query Language           (select)
+                Used for performing queries on the data within schema objects.
+                It is used to retrieve data from the database.
+
+        TCL – Transaction Control Language  (Commit, Savepoint, Rollback, Set transaction & Set constraint)
+                Transactions group a set of tasks into a single execution unit.
+                Each transaction begins with a specific task and ends when all the tasks in the group successfully complete.
+                If any of the tasks fail, the transaction fails. Therefore, a transaction has only two results: success or failure.
+                COMMIT: Commits a Transaction.
+                ROLLBACK: Rollbacks a transaction in case of any error occurs.
+                SAVEPOINT: Sets a save point within a transaction.
+                SET TRANSACTION: Specifies characteristics for the transaction.
+
+
 - sql to fetch third highest salary of an employee
     Solution :
         SELECT DISTINCT `salary` FROM `employees` ORDER BY `salary` DESC LIMIT 1 OFFSET 1;
@@ -424,37 +555,121 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         SELECT * FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2;
 
         -- Return 3rd highest salary with distincation. Can return multiple rows matched.
-        SELECT *
-        FROM `employee`
-        WHERE
-            `Salary` = (SELECT DISTINCT `Salary`
-                FROM `employee`
-                ORDER BY `salary` DESC
-            LIMIT 1 OFFSET 2
-            )
-        ;
+        SELECT * FROM `employee` WHERE `Salary` = (SELECT DISTINCT `Salary` FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2);
 
         -- Return 3rd highest salary with distincation. Limiting to 1 result.
-        SELECT *
-        FROM `employee`
-        WHERE
-            `Salary` = (SELECT DISTINCT `Salary`
-                FROM `employee`
-                ORDER BY `salary` DESC
-            LIMIT 1 OFFSET 2
-            )
-        LIMIT 1
-        ;
+        SELECT * FROM `employee` WHERE `Salary` = (SELECT DISTINCT `Salary` FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2) LIMIT 1;
 
 
 - what are aggregate functions
+    A function where the values of multiple rows are grouped together as input on certain criteria to form a single value of more significant meaning.
+    Count()
+    Sum()
+    Avg()
+    Min()
+    Max()
 
-- what is ddos attack (Distributed denial of service - attack is a malicious attempt to disrupt the normal traffic of a targeted server, service or network by overwhelming the target or its surrounding infrastructure with a flood of Internet traffic )
-- what is owasp ( Open Web Application Security Project - is a nonprofit foundation that works to improve the security of software. )
+
+- what is ddos attack
+    A distributed denial-of-service (DDoS) attack is a malicious attempt to disrupt the normal traffic of a targeted server, service or network by overwhelming the target or its surrounding infrastructure with a flood of Internet traffic.
+    A DDoS attack is like an unexpected traffic jam clogging up the highway, preventing regular traffic from arriving at its destination.
+
+
+- what is owasp
+    Open Web Application Security Project(OWASP) is a nonprofit foundation that works to improve the security of the software.
+    The project focuses on providing good security practices for builders in order to secure their applications.
+
 
 -- GIT
 - how do you merge git requests
+    via github or via command line
+        git checkout feature
+        git merge main
+            Or
+        git merge feature main
+
+    This command will combine multiple sequences of commits into one unified history. In the most frequent use cases, git merge is used to combine two branches. The git merge command takes two commit pointers, usually the branch tips, and finds a common base commit between them. Once it finds a common base commit, it will create a commit sequence.
+    
+
 - what is the difference between git fetch and git pull
+    Git Fetch 
+        Git Fetch is the command that tells the local repository that there are changes available in the remote repository without bringing the changes into the local repository.
+        git fetch = git merge
+    Git Pull    
+        Git Pull on the other hand brings the copy of the remote directory changes into the local repository.
+        git pull = git fetch + git merge
+    
+    Difference
+        GF - Gives the information of a new change from a remote repository without merging into the current branch
+        GP - Brings the copy of all the changes from a remote repository and merges them into the current branch
+
+        GF - Repository data is updated in the .git directory
+        GP - The local repository is updated directly
+ 
+        GF - Review of commits and changes can be done
+        GP - Updates the changes to the local repository immediately.
+
+        GF - No possibility of merge conflicts.
+        GP - Merge conflicts are possible if the remote and the local repositories have done changes at the same place.
+
+        GF - Command for Git fetch is git fetch<remote>
+        GP - Command for Git Pull is git pull<remote><branch>
+
+        GF - Git fetch basically imports the commits to local branches so as to keep up-to-date that what everybody is working on.
+        GP - Git Pull basically brings the local branch up-to-date with the remote copy that will also updates the other remote tracking branches.
+
+
 - what is the the staging branch in git
+    The staging environment is as similar to production as possible.
+    The idea is that if a feature is running perfectly fine in staging, it will run in production also.
+    Generally, the acceptance tests are carried out in this environment, but depending on the testing model, it can be carried out in the development environment also.
+    Smoke tests and most of the performance, reliability, security and availability testings will be carried out in this environment.
+    All pre customer releases will be made in this environment. The customers/clients will be shown a demo in this environment before releasing it to production and making the application live.
+
+
 - where is the data stored when we commit changes
-- what is the command to revert back the pushed changes (git revert <commit hash> . You can undo the latest commit with git reset --soft HEAD^ too. But if you already pushed your changes a revert could be a better option)
+    The staging area can be described as a preview of your next commit. When you create a git commit, Git takes changes that are in the staging area and make them as a new commit. You are allowed to add and remove changes from the staging area. The staging area can be considered as a real area where git stores the changes.
+    Changes are stored in staging area in .index file.
+
+
+- what is the command to revert back the pushed changes
+    git revert <commit hash> . 
+    You can undo the latest commit with git reset --soft HEAD^ too. But if you already pushed your changes a revert could be a better option
+
+
+- git stash
+    "git stash"
+    This command can be used when we want to save our work without staging or committing the code to our Git repository and want to switch between branches.
+    
+    "git stash -u"
+        command is used when we want to stash the untracked files.
+    
+    "git stash pop"
+        This command is used when we are back on our branch and want to retrieve the code.
+
+    Note that the stash is local to your Git repository; stashes are not transferred to the server when you push.
+
+
+- git revert [commit id]
+    The git revert command can be considered as an ‘undo’ command. However, it does not work as the traditional ‘undo’ operation.
+    It figures out how to invert the changes introduced by the commit and appends a new commit with the resulting inverse content.
+
+
+- git diff
+    Usage: git diff commit-id-of-version-x commit-id-of-version-y
+
+    Diffing is a function that takes two input datasets and outputs the changes between them. The git diff command is a multi-use Git command which, when executed, runs a diff function on Git data sources. These data sources can be commits, branches, files, and more. The git diff command is often used along with the git status and git log commands to analyze the current state of our Git repository. We use git log to get the details of commit IDs.
+
+
+- git rebase
+    Usage: git rebase master
+    Rebase is the process of moving and combining a sequence of commits to a new base commit. Rebasing is changing the base of our branch from one commit to another, making it appear as if we’ve created our branch from a different commit. Internally, Git accomplishes this by creating new commits and applying them to the specified base. It’s very important to understand that even though the branch looks the same, it is composed of entirely new commits.
+    The git rebase command performs an automatic git checkout <branch> before doing anything else. Otherwise, it remains on the current branch.
+
+
+- git reset --hard
+    We use this command to return the entire working tree to the last committed state.
+    This will discard commits in a private branch or throw away the uncommitted changes!
+    If we do git reset -–hard [SOME-COMMIT], then Git will:
+    Make our current branch (typically master) back to point <SOME-COMMIT>
+    Make the files in our working tree and the index (“staging area”) the same as the versions committed at <SOME-COMMIT>
