@@ -395,3 +395,150 @@ Fetch nth highest salry from table
     LIMIT 1
     ;
 
+
+What is Composer
+    A Composer is a tool that incorporates all the dependencies and libraries. It helps to create a project with respect to its specified system and project. Third-party libraries can be installed in a project effortlessly utilizing composer. Composer is utilized to manage its conditions and the dependencies are noted in composer.
+    It is designed in such a way that it will not only pull the required component or package you want in your PHP application. It also keeps the track of the dependencies of those required components or packages as well as creates the class map for the downloaded libraries. It automatically loads once and becomes available system-wide. It follows the DRY principle. DRY (Don’t Repeat Yourself) is a key principle in software engineering.
+
+What is a Trait?
+    Traits are a mechanism for code reuse in single inheritance languages such as PHP.
+    A trait is intended to reduce some limitations of single inheritance by enabling a developer to reuse sets of methods freely in several independent classes living in different class hierarchies.
+    In simple terms Traits is a group of methods that you want to include within another class. You can easily reuse that methods to another class. Trait is used to write same code again and again.
+    Traits only extend multiple traits at the same time but can’t extend more than one class.
+    E.g:
+        Whenever we need to upload image then we can use this ImageTrait trait.
+        
+        Create a folder inside app directory named Traits and inside it create ImageTrait with verifyAndUpload() function.
+            <?php
+            namespace App\Traits;
+            use Illuminate\Http\Request;
+
+            trait ImageTrait {
+                /**
+                * @param Request $request
+                * @return $this|false|string
+                */
+                public function verifyAndUpload(Request $request, $fieldname = 'image', $directory = 'images' ) {
+                    if( $request->hasFile( $fieldname ) ) {
+                        if (!$request->file($fieldname)->isValid()) {
+                            flash('Invalid Image!')->error()->important();
+                            return redirect()->back()->withInput();
+                        }
+                        return $request->file($fieldname)->store($directory, 'public');
+                    }
+                    return null;
+                }
+            }
+        
+        Create the controller that will use ImageTrait
+            <?php
+            namespace App\Http\Controllers;
+            use Illuminate\Http\Request;
+            use App\Item;
+            use App\Traits\ImageTrait;
+
+            class ItemController extends Controller
+            {
+                use ImageTrait;
+
+                /**
+                * Display a listing of the resource.
+                *
+                * @return \Illuminate\Http\Response
+                */
+                public function create()
+                {
+                    return view('imageUpload');
+                }
+
+                /**
+                * Display a listing of the resource.
+                *
+                * @return \Illuminate\Http\Response
+                */
+                public function store(Request $request)
+                {
+                    $input = $request->all();
+                    $input['image'] = $this->verifyAndUpload($request, 'image', 'images');
+                    Item::create($input);
+                    return back()->with('success','record created successfully.');
+                }
+            }
+
+How multiple inheritance is achieved in php ?
+    PHP programming language doesn’t even support the multiple inheritance/inheritances. 
+    PHP supports multiple inheritances only by using interfaces or Traits in PHP instead of classes so that we can implement it.
+    
+    Interface : Interfaces allow you to specify what methods a class should implement. Interfaces make it easy to use a variety of different classes in the same way. When one or more classes use the same interface, it is referred to as "polymorphism". Interfaces are declared with the interface keyword.
+
+    Trait : Traits are used to declare methods that can be used in multiple classes. Traits can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier (public, private, or protected). Traits are declared with the trait keyword.
+
+    E.g: Trait Example
+        <?php
+        // Class Pavan
+        class Pavan {
+            public function sayhihello() {
+                echo "Hey Hi Hello";
+            }
+        }
+
+        // Trait for pavan
+        trait forPavan {
+            public function sayforp() {
+                echo " Pavan";
+            }
+        }
+
+        class Sample extends Pavan {
+            use forPavan;
+            public function pavanforNaruto() {
+                echo "\npavanforNaruto";
+            }
+        }
+
+        $test = new Sample();
+        $test->sayhihello(); // Hey Hi Hello
+        $test->sayforp();    // pavan
+        $test->pavanforNaruto(); // pavanforNaruto
+
+        ?>
+
+        O/P:
+            Hey Hi Hello Pavan
+            pavanforNaruto
+
+        Interface Example
+        <?php
+        
+        interface C1 {
+            public function insideC1();
+        }
+
+        interface B1 {
+            public function insideB1();
+        }
+
+        class Multiple1 implements B1, C1 {
+            // Function of the interface B1
+            function insideB1() {
+                echo "\n Hey now you are in the interface B1";
+            }
+
+            // Function of the interface C1
+            function insideC1() {
+                echo "\nHi buddy !! Now you are in the interface C1";
+            }
+
+            public function insidemultiple1() {
+                echo "\nHeyaa You are in the inherited class";
+            }
+        }
+
+        $Naruto = new multiple1();
+        $Naruto->insideC1(); // Hi buddy !! Now you are in the interface C1
+        $Naruto->insideB1(); // Hey now you are in the interface B1
+        $Naruto->insidemultiple1(); // Heyaa You are in the inherited class
+        ?>
+
+Traits vs. Interfaces
+    The main difference between the Traits and Interfaces in PHP is that the Traits define the actual implementation of each method within each class, so many classes implement the same interface but having different behavior, while traits are just chunks of code injected in a class. A class can implement more than one interface whereas it can extend only one class.

@@ -37,7 +37,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         dynamodb - sessions are stored in AWS DynamoDB.
         array - sessions are stored in a PHP array and will not be persisted.
 
-    - Retrieving data
+    - Retrieving Data
         There are two primary ways of working with session data in Laravel: the global session helper and via a Request instance.
         1. The session via a Request instance, which can be type-hinted on a route closure or controller method. 
         E.g 
@@ -52,82 +52,82 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
             When the session helper is called with a single, string argument, it will return the value of that session key. 
             When the helper is called with an array of key / value pairs, those values will be stored in the session
         
-        Retrieve a piece of data from the session...
-            $value = session('key');
-         
-            // Specifying a default value...
-            $value = session('key', 'default');
-         
-            // Store a piece of data in the session...
-            session(['key' => 'value']);
-
-            retrieve all the data in the session
-            E.g
-                $data = $request->session()->all();
-
-            To determine if an item is present in the session, you may use the has method. The has method returns true if the item is present and is not null
-            E.g
-                if ($request->session()->has('users')) {}
-            To determine if an item is present in the session, even if its value is null, you may use the exists method
-            E.g
-                if ($request->session()->exists('users')) {}
-            To determine if an item is not present in the session, you may use the missing method. The missing method returns true if the item is not present
-            E.g
-                if ($request->session()->missing('users')) {}
-
-        Storing Data in session
-            To store data in the session, you will typically use the request instance's put method or the global session helper
-            E.g
-                // Via a request instance...
-                $request->session()->put('key', 'value');
-                 
-                // Via the global "session" helper...
+            Retrieve a piece of data from the session...
+                $value = session('key');
+            
+                // Specifying a default value...
+                $value = session('key', 'default');
+            
+                // Store a piece of data in the session...
                 session(['key' => 'value']);
 
-            Pushing To Array Session Values
-                The push method may be used to push a new value onto a session value that is an array. For example, if the user.teams key contains an array of team names, you may push a new value onto the array like
-                E.g $request->session()->push('user.teams', 'developers');
+                retrieve all the data in the session
+                E.g
+                    $data = $request->session()->all();
 
-        Retrieving & Deleting An Item
-            The pull method will retrieve and delete an item from the session in a single statement
-            E.g $value = $request->session()->pull('key', 'default');
+                To determine if an item is present in the session, you may use the has method. The has method returns true if the item is present and is not null
+                E.g
+                    if ($request->session()->has('users')) {}
+                To determine if an item is present in the session, even if its value is null, you may use the exists method
+                E.g
+                    if ($request->session()->exists('users')) {}
+                To determine if an item is not present in the session, you may use the missing method. The missing method returns true if the item is not present
+                E.g
+                    if ($request->session()->missing('users')) {}
 
-        Incrementing & Decrementing Session Values
-            $request->session()->increment('count');
-             
-            $request->session()->increment('count', $incrementBy = 2);
-             
-            $request->session()->decrement('count');
-             
-            $request->session()->decrement('count', $decrementBy = 2);
+            Storing Data in session
+                To store data in the session, you will typically use the request instance's put method or the global session helper
+                E.g
+                    // Via a request instance...
+                    $request->session()->put('key', 'value');
+                    
+                    // Via the global "session" helper...
+                    session(['key' => 'value']);
 
-        Flash Data
-            Sometimes you may wish to store items in the session for the next request. You may do so using the flash method. Data stored in the session using this method will be available immediately and during the subsequent HTTP request.
-            E.g $request->session()->flash('status', 'Task was successful!');
+                Pushing To Array Session Values
+                    The push method may be used to push a new value onto a session value that is an array. For example, if the user.teams key contains an array of team names, you may push a new value onto the array like
+                    E.g $request->session()->push('user.teams', 'developers');
 
-            If you need to persist your flash data for several requests, you may use the reflash method, which will keep all of the flash data for an additional request. If you only need to keep specific flash data, you may use the keep method
-            E.g
-                $request->session()->reflash();
-                $request->session()->keep(['username', 'email']);
+            Retrieving & Deleting An Item
+                The pull method will retrieve and delete an item from the session in a single statement
+                E.g $value = $request->session()->pull('key', 'default');
 
-            To persist your flash data only for the current request, you may use the now method:
-            E.g $request->session()->now('status', 'Task was successful!');
+            Incrementing & Decrementing Session Values
+                $request->session()->increment('count');
+                
+                $request->session()->increment('count', $incrementBy = 2);
+                
+                $request->session()->decrement('count');
+                
+                $request->session()->decrement('count', $decrementBy = 2);
 
-        Deleting Data
-            The forget method will remove a piece of data from the session. If you would like to remove all data from the session, you may use the flush method:
-            E.g // Forget a single key...
-                $request->session()->forget('name');
-                 
-                // Forget multiple keys...
-                $request->session()->forget(['name', 'status']);
-                 
-                $request->session()->flush();
+            Flash Data
+                Sometimes you may wish to store items in the session for the next request. You may do so using the flash method. Data stored in the session using this method will be available immediately and during the subsequent HTTP request.
+                E.g $request->session()->flash('status', 'Task was successful!');
 
-            Regenerating the session ID is often done in order to prevent malicious users from exploiting a session fixation attack on your application.
-            E.g $request->session()->regenerate();
+                If you need to persist your flash data for several requests, you may use the reflash method, which will keep all of the flash data for an additional request. If you only need to keep specific flash data, you may use the keep method
+                E.g
+                    $request->session()->reflash();
+                    $request->session()->keep(['username', 'email']);
 
-            If you need to regenerate the session ID and remove all data from the session in a single statement, you may use the invalidate method
-            E.g $request->session()->invalidate();
+                To persist your flash data only for the current request, you may use the now method:
+                E.g $request->session()->now('status', 'Task was successful!');
+
+            Deleting Data
+                The forget method will remove a piece of data from the session. If you would like to remove all data from the session, you may use the flush method:
+                E.g // Forget a single key...
+                    $request->session()->forget('name');
+                    
+                    // Forget multiple keys...
+                    $request->session()->forget(['name', 'status']);
+                    
+                    $request->session()->flush();
+
+                Regenerating the session ID is often done in order to prevent malicious users from exploiting a session fixation attack on your application.
+                E.g $request->session()->regenerate();
+
+                If you need to regenerate the session ID and remove all data from the session in a single statement, you may use the invalidate method
+                E.g $request->session()->invalidate();
 
 
 - what does http kernel file hold (application's global HTTP middleware stack) console/kernel file the application's command schedule.
@@ -135,6 +135,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
     These two kernels serve as the central location that all requests flow through.The HTTP kernel extends the Illuminate\Foundation\Http\Kernel class, 
     which defines an array of bootstrappers that will be run before the request is executed. These bootstrappers configure error handling, configure logging, 
     detect the application environment, and perform other tasks that need to be done before the request is actually handled.
+
     The HTTP kernel also defines a list of HTTP middleware that all requests must pass through before being handled by the application. 
     These middleware handle reading and writing the HTTP session, determining if the application is in maintenance mode, verifying the CSRF token, and more.
     The method signature for the HTTP kernel's handle method is quite simple: it receives a Request and returns a Response. 
@@ -143,6 +144,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 
 - what is authorization and authentication (difference between both)
     Authentication (to verify a user's credentials and authenticate the user)
+        
         How authentication works - When using a web browser, a user will provide their username and password via a login form. If these credentials are correct, the application will store information about the authenticated user in the user's session. A cookie issued to the browser contains the session ID so that subsequent requests to the application can associate the user with the correct session. After the session cookie is received, the application will retrieve the session data based on the session ID, note that the authentication information has been stored in the session, and will consider the user as "authenticated".
         When a remote service needs to authenticate to access an API, cookies are not typically used for authentication because there is no web browser. Instead, the remote service sends an API token to the API on each request. The application may validate the incoming token against a table of valid API tokens and "authenticate" the request as being performed by the user associated with that API token.
         Laravel provides two optional packages to assist you in managing API tokens and authenticating requests made with API tokens: Passport and Sanctum.
@@ -150,18 +152,15 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         Laravel's authentication facilities are made up of "guards" and "providers". Guards define how users are authenticated for each request. For example, Laravel ships with a session guard which maintains state using session storage and cookies.
         Providers define how users are retrieved from your persistent storage. Laravel ships with support for retrieving users using Eloquent and the database query builder. Your application's authentication configuration file is located at config/auth.php.
         We may access the authenticated user via the Auth facade's user method
+
         E.g
             use Illuminate\Support\Facades\Auth;
-            
             // Retrieve the currently authenticated user...
-            $user = Auth::user();
-            
+            $user = Auth::user();    
             // Retrieve the currently authenticated user's ID...
             $id = Auth::id();
-
             Determining If The Current User Is Authenticated
             use Illuminate\Support\Facades\Auth;
-            
             if (Auth::check()) {
                 // The user is logged in...
             }
@@ -316,8 +315,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         In Laravel 9.x you may define an accessor and mutator using a single, non-prefixed method by type-hinting a return type of Illuminate\Database\Eloquent\Casts\Attribut
         
         use Illuminate\Database\Eloquent\Casts\Attribute;
-        public function name(): Attribute
-        {
+        public function name(): Attribute {
             return new Attribute(
                 get: fn ($value) => strtoupper($value),
                 set: fn ($value) => $value,
@@ -430,8 +428,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         });
     
     The Facade base class makes use of the __callStatic() magic-method to defer calls from your facade to an object resolved from the container. Any calls we make using the facade will be passed to the underlying instance of Laravel's cache service. If we look at that Illuminate\Support\Facades\Cache class, you'll see that there is no static method get
-        class Cache extends Facade
-        {
+        class Cache extends Facade {
             /**
             * Get the registered name of the component.
             *
@@ -512,18 +509,36 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         DCL – Data Control Language         (Grant & Revoke)
                 Mainly deal with the rights, permissions, and other controls of the database system.
                 GRANT: This command gives users access privileges to the database.
-                REVOKE: This command withdraws the user’s access privileges given by using the GRANT command.
+                syntax: grant privilege_name on object_name to {user_name | public | role_name}
+                E.g: grant insert, select on accounts to Ram
 
+                REVOKE: This command withdraws the user’s access privileges given by using the GRANT command.
+                syntax: revoke privilege_name on object_name from {user_name | public | role_name}
+                E.g: revoke insert, select on accounts from Ram
+                
         DDL – Data Definition Language      (Create, Drop, Alter, Comment, Rename & Truncate)
                 Used to define the database schema.
                 DDL is a set of SQL commands used to create, modify, and delete database structures but not data.
                 CREATE: This command is used to create the database or its objects (like table, index, function, views, store procedure, and triggers).
-                DROP: This command is used to delete objects from the database.
-                ALTER: This is used to alter the structure of the database.
-                TRUNCATE: This is used to remove all records from a table, including all spaces allocated for the records are removed.
-                COMMENT: This is used to add comments to the data dictionary.
-                RENAME: This is used to rename an object existing in the database.
+                    CREATE TABLE Persons (PersonID int,LastName varchar(255));
 
+                DROP: This command is used to delete objects from the database.
+                    DROP TABLE table_name;
+
+                ALTER: This is used to alter the structure of the database.
+                    ALTER TABLE Customers ADD Email varchar(255);
+                    ALTER TABLE Customers DROP COLUMN Email;
+
+                TRUNCATE: This is used to remove all records from a table, including all spaces allocated for the records are removed but not the table itself.
+                    TRUNCATE TABLE Categories;
+
+                COMMENT: This is used to add comments to the data dictionary.
+                    comment on column salgrades.lowerlimit is 'For sales reps only';
+
+                RENAME: This is used to rename an object existing in the database.
+                    ALTER TABLE table_name RENAME TO new_table_name;
+                    ALTER TABLE table_name CHANGE COLUMN old_name TO new_name;
+                    
         DML – Data Manipulation Language    (Insert, Update, Delete & Lock)
                 Used for manipulation of data present in the database.
                 INSERT : It is used to insert data into a table.
@@ -543,6 +558,17 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
                 ROLLBACK: Rollbacks a transaction in case of any error occurs.
                 SAVEPOINT: Sets a save point within a transaction.
                 SET TRANSACTION: Specifies characteristics for the transaction.
+
+- store procedure
+    A stored procedure is a prepared SQL code that you can save, so the code can be reused over and over again.
+    So if you have an SQL query that you write over and over again, save it as a stored procedure, and then just call it to execute it.
+    You can also pass parameters to a stored procedure, so that the stored procedure can act based on the parameter value(s) that is passed.
+    E.g: 
+        Syntax:
+        CREATE PROCEDURE procedure_name AS sql_statement GO;
+
+        Execute a Stored Procedure:
+        EXEC procedure_name;
 
 
 - sql to fetch third highest salary of an employee
@@ -586,7 +612,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         git checkout feature
         git merge main
             Or
-        git merge feature main
+        git merge feature main //merges the main branch into the feature branch.
 
     This command will combine multiple sequences of commits into one unified history. In the most frequent use cases, git merge is used to combine two branches. The git merge command takes two commit pointers, usually the branch tips, and finds a common base commit between them. Once it finds a common base commit, it will create a commit sequence.
     
@@ -594,7 +620,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 - what is the difference between git fetch and git pull
     Git Fetch 
         Git Fetch is the command that tells the local repository that there are changes available in the remote repository without bringing the changes into the local repository.
-        git fetch = git merge
+
     Git Pull    
         Git Pull on the other hand brings the copy of the remote directory changes into the local repository.
         git pull = git fetch + git merge
@@ -633,8 +659,10 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 
 
 - what is the command to revert back the pushed changes
-    git revert <commit hash> . 
-    You can undo the latest commit with git reset --soft HEAD^ too. But if you already pushed your changes a revert could be a better option
+    git revert <commit hash or id>
+    You can undo the latest commit with git reset --soft HEAD^ too. But if you already pushed your changes a revert could be a better option. 
+    The git revert command can be considered as an ‘undo’ command. However, it does not work as the traditional ‘undo’ operation.
+    It figures out how to invert the changes introduced by the commit and appends a new commit with the resulting inverse content.
 
 
 - git stash
@@ -648,11 +676,6 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         This command is used when we are back on our branch and want to retrieve the code.
 
     Note that the stash is local to your Git repository; stashes are not transferred to the server when you push.
-
-
-- git revert [commit id]
-    The git revert command can be considered as an ‘undo’ command. However, it does not work as the traditional ‘undo’ operation.
-    It figures out how to invert the changes introduced by the commit and appends a new commit with the resulting inverse content.
 
 
 - git diff
