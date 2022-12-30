@@ -7,7 +7,8 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
     However, if the user is authenticated, the middleware will allow the request to proceed further into the application.
     
     Middleware can be written to perform a variety of tasks besides authentication. 
-    For example, a logging middleware might log all incoming requests to your application. All of these middleware are located in the app/Http/Middleware directory.
+    For example, a logging middleware might log all incoming requests to our application. 
+    All of these middleware are located in the app/Http/Middleware directory.
 
     A middleware can perform some task before or after the request is handled by the application.
 
@@ -443,7 +444,7 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 
 
 - what do you mean by object in facades
-    Instead, the Cache facade extends the base Facade class and defines the method getFacadeAccessor(). This method's job is to return the name of a service container binding. When a user references any static method on the Cache facade, Laravel resolves the cache binding from the service container and runs the requested method (in this case, get) against that object.
+    The Cache facade extends the base Facade class and defines the method getFacadeAccessor(). This method's job is to return the name of a service container binding. When a user references any static method on the Cache facade, Laravel resolves the cache binding from the service container and runs the requested method (in this case, get) against that object.
 
 
 - what is throttling
@@ -452,8 +453,8 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
 
 
 - what are events? can you give an example
-    Laravel's events provide a simple observer pattern implementation, allowing you to subscribe and listen for various events that occur within your application. Event classes are typically stored in the app/Events directory, while their listeners are stored in app/Listeners.
-    Events serve as a great way to decouple various aspects of your application, since a single event can have multiple listeners that do not depend on each other. For example, you may wish to send a Slack notification to your user each time an order has shipped. Instead of coupling your order processing code to your Slack notification code, you can raise an App\Events\OrderShipped event which a listener can receive and use to dispatch a Slack notification.
+    Laravel's events provide a simple observer pattern implementation, allowing you to subscribe and listen for various events that occur within our application. Event classes are typically stored in the app/Events directory, while their listeners are stored in app/Listeners.
+    Events serve as a great way to decouple various aspects of our application, since a single event can have multiple listeners that do not depend on each other. For example, you may wish to send a Slack notification to a user each time an order has shipped. Instead of coupling our order processing code to your Slack notification code, we can raise an App\Events\OrderShipped event which a listener can receive and use it to dispatch a Slack notification.
     Events can be implemented using observers on model at the time of creating, storing, updating & deleting the model record.
 
 
@@ -571,20 +572,27 @@ Blenheim Chalcot : technical round : 10-11-2022 9:30am : zoom meeting : sr softw
         EXEC procedure_name;
 
 
-- sql to fetch third highest salary of an employee
+- sql to fetch third highest salary of an employees
     Solution :
         SELECT DISTINCT `salary` FROM `employees` ORDER BY `salary` DESC LIMIT 1 OFFSET 1;
         // limit 1 - will fetch only 1 record
-        // offset 1 will discard the starting numbers of row mentioned here 1 row will be discarded and this will fetch 2nd highest salary employee
+        // offset 1 will discard the starting numbers of row mentioned here 1 row will be discarded and this will fetch 2nd highest salary employees
 
         -- Return 3rd highest salary with no regards of same salary. i.e. Brian Kernighan
-        SELECT * FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2;
+        SELECT * FROM `employees` ORDER BY `salary` DESC LIMIT 1 OFFSET 2;
 
         -- Return 3rd highest salary with distincation. Can return multiple rows matched.
-        SELECT * FROM `employee` WHERE `Salary` = (SELECT DISTINCT `Salary` FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2);
+        SELECT * FROM `employees` WHERE `Salary` = (SELECT DISTINCT `Salary` FROM `employees` ORDER BY `salary` DESC LIMIT 1 OFFSET 2);
 
         -- Return 3rd highest salary with distincation. Limiting to 1 result.
-        SELECT * FROM `employee` WHERE `Salary` = (SELECT DISTINCT `Salary` FROM `employee` ORDER BY `salary` DESC LIMIT 1 OFFSET 2) LIMIT 1;
+        SELECT * FROM `employees` WHERE `Salary` = (SELECT DISTINCT `Salary` FROM `employees` ORDER BY `salary` DESC LIMIT 1 OFFSET 2) LIMIT 1;
+
+        without using limit and offset keywords
+        3rd highest salary
+            SELECT Max(salary) FROM employees WHERE salary < (SELECT Max(salary) FROM employees WHERE salary NOT IN(SELECT Max(salary) FROM employees));
+
+        2nd highest salary
+            SELECT Max(salary) FROM employees WHERE salary NOT IN(SELECT Max(salary) FROM employees);
 
 
 - what are aggregate functions
