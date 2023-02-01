@@ -206,19 +206,161 @@
         
 	which one is better? sessions or cookies?
 	A - 
+
+    How does php allow multiple inheritance (yes it supports multiple inheritance through traits, Traits are used to declare methods that can be used in multiple classes.)
+	A -
+        PHP only supports single inheritance: a child class can inherit only from one single parent.
+        So, what if a class needs to inherit multiple behaviors? OOP traits solve this problem.
+        Traits are used to declare methods that can be used in multiple classes. Traits can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier (public, private, or protected). Traits are declared with the trait keyword.
+        Traits are used when multiple classes share the same functionality.
+
+        e.g 
+            <?php
+                trait message1 {
+                    public function msg1() {
+                        echo "OOP is fun! "; 
+                    }
+                }
+
+                trait message2 {
+                    public function msg2() {
+                        echo "OOP reduces code duplication!"; 
+                    }
+                }
+
+                class Welcome {
+                    use message1;
+                }
+
+                class Welcome2 {
+                    use message1, message2;
+                }
+
+                $obj = new Welcome();
+                $obj->msg1(); // OOP is fun!
+                echo "<br>";
+                $obj2 = new Welcome2();
+                $obj2->msg1(); // OOP is fun!
+                echo "<br>";
+                $obj2->msg2(); // OOP reduces code duplication!
+                echo "<br>";
+                message1::msg1(); // calling msg1() of trait directly using static method.
+            ?>
     
-    - How does php allow multiple inheritance (yes it supports multiple inheritance through traits, Traits are used to declare methods that can be used in multiple classes.)
-	- what is diference between array_merge( merge two or more arrays into a single array) and array_combine (combine two arrays and create a new array by using one array for keys and another array for values)
-	- what are types of errors in php (syntax/parse, fatal, warning, notice)
-	- what is runtime polymorphism (method overriding)
-	- what are access modifiers in php (private, public, protected)
-	- how are errors handled
-	- what are exceptions and how do we handle exceptions
-	- how to handle infinite loopp error in php
-	- what is difference between error handling and exception handling
-	- what is final keyword  (The final keyword can be used to prevent class inheritance or to prevent method overriding)
-	- static methods (Static methods can be called directly - without creating an instance of the class first)
-	- cookie (A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too)
+
+    what is diference between array_merge( merge two or more arrays into a single array) and array_combine (combine two arrays and create a new array by using one array for keys and another array for values)
+	A - 
+        to use this array funtion both array must have the same number of elements.
+        array_merge()
+            The array_merge() function is used to merge two or more arrays into a single array. This function is used to merge the elements or values of two or more arrays together into a single array. The merging occurs in such a manner that the values of one array are appended at the end of the previous array. The function takes the list of arrays separated by commas as a parameter that is needed to be merged and returns a new array with merged values of arrays passed in parameter.
+            e.g
+                // Define array1 with keys and values
+                $array1 = array("subject1" => "Python","subject2" => "sql");
+                // Define array2 with keys and values
+                $array2 = array("subject3" => "c/c++","subject4" => "java");
+                // Merge both array1 and array2
+                $final = array_merge($array1, $array2);
+                // Display merged array
+                print_r($final);
+
+                output : 
+                Array(
+                    [subject1] => Python
+                    [subject2] => sql
+                    [subject3] => c/c++
+                    [subject4] => java
+                )
+
+        array_combine()
+            The array_combine() function is used to combine two arrays and create a new array by using one array for keys and another array for values i.e. all elements of one array will be the keys of new array and all elements of the second array will be the values of this new array.
+            e.g 
+                Here, array1 is the first array with keys and array2 is the second array with the values.
+                // Define array1 with keys
+                $array1 = array("subject1" ,"subject2");
+
+                // Define array2 with values
+                $array2 = array( "c/c++", "java");
+
+                // Combine two arrays
+                $final = array_combine($array1, $array2);
+
+                // Display merged array
+                print_r($final);
+
+                output :
+                Array
+                (
+                    [subject1] => c/c++
+                    [subject2] => java
+                )
+
+
+    what are types of errors in php (syntax/parse, fatal, warning, notice)
+    A - 
+        Parse error or Syntax Error: 
+            It is the type of error done by the programmer in the source code of the program. The syntax error is caught by the compiler.
+            Parse errors can be caused dues to unclosed quotes, missing or Extra parentheses, Unclosed braces, Missing semicolon etc
+
+        Fatal Error:
+            It is the type of error where PHP compiler understand the PHP code but it recognizes an undeclared function. This means that function is called without the definition of function.
+
+        Warning Errors:
+            The main reason of warning errors are including a missing file. This means that the PHP function call the missing file.
+
+        Notice Error:
+            It is similar to warning error. It means that the program contains something wrong but it allows the execution of script. Error like undefined variable.
+
+	what is runtime polymorphism (method overriding)
+
+	what are access modifiers in php (private, public, protected)
+	
+    how are errors handled
+    A - 
+        The default error handling in PHP will give file name line number and error type.
+        Ways to handle :
+        die() - function to print a message and exit from current script.
+        Custom Error Handling - Create a function that can be called when a error has been occurred in PHP.
+        error_function( $error_level, $error_message, $error_file, $error_line, $error_context)
+
+	what are exceptions and how do we handle exceptions
+	A - 
+        Exception handling is used to change the normal flow of the code execution if a specified error (exceptional) condition occurs. This condition is called an exception. we can make use of Try, throw and catch to handle exceptions.
+
+    how to handle infinite loopp error in php
+	A - 
+        infinite loops can be caused by incorrect logic in your code. To handle them, you can use the following techniques:
+
+        Setting a maximum iteration limit: This involves setting a maximum number of iterations the loop can run before breaking out of the loop.
+
+        Checking for a specific condition to break out of the loop: You can include a condition in the loop that, when met, will cause the loop to exit.
+
+        Using a timer to break out of the loop: You can use the microtime() function to determine how much time has passed since the loop started and break out of the loop if it exceeds a certain amount of time. It's always important to keep in mind that infinite loops can cause high resource usage and potentially crash your server, so it's essential to have a mechanism in place to stop them from running indefinitely.
+        e.g 
+        $counter = 0;
+        while (true) {
+            $counter++;
+            if ($counter > 100000) {
+                break;
+            }
+        }
+
+
+    what is difference between error handling and exception handling
+    A - 
+        Exceptions are related to the application whereas Errors are related to the environment in which application is running.
+        Program execution will continue - because you 'caught' the exception. An exception will be treated as an error unless it is caught. It will allow you to continue program execution after it fails as well.
+    
+	what is final keyword 
+    A - 
+        The final keyword can be used to prevent class inheritance or to prevent method overriding
+	
+    static methods
+    A -
+        Static methods can be called directly(::) - without creating an instance of the class first.
+	
+    cookie
+    A -
+        cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too.
 	
 - laravel :
 	- what are interfaces
@@ -235,13 +377,62 @@
 	- what are stored procedures (stored procedure is a prepared sql code that you can save so that code can be reused again)
 	- what are triggers (special type of stored procedure that automatically runs when an event occurs in the db server)
 	- what is primary key, foreign key and unique key (why are they used for) (primary key - which uniquely identifies each row/record in db table primary keys must contain unique values and hence it canot contain null value )
-	- can unique values contain null values if yes then how many (it can be null, multiple unique keys can be present in a table)
-	- what is indexing (used to retrieve data from db very fast, to increase performance of queries )
-	- how do we do indexing
+	can unique values contain null values if yes then how many (it can be null, multiple unique keys can be present in a table)
+    A - 
+        consider the following table customers with a unique key constraint on the email column
+        CREATE TABLE customers (
+            id INT PRIMARY KEY,
+            first_name VARCHAR(50),
+            last_name VARCHAR(50),
+            email VARCHAR(100),
+            UNIQUE KEY unique_email (email)
+        );
+        you can insert multiple rows with different values for the email column, but you can only insert one row with a null value for the email column. This is because the unique key constraint on the email column requires that the values in this column be unique, and null values are considered to be unique.
+
+	what is indexing & how do we do indexing
+    A - 
+        Indexing in SQL is a process of creating a data structure that allows for faster retrieval of data from a database table. It helps to improve the performance of queries by reducing the number of rows that need to be scanned to find the relevant data.
+        An index in SQL works like an index in a book. Just as a book's index allows you to find specific information quickly, an index in a database allows you to find specific rows in a table quickly. When a query is executed, the database uses the index to find the rows that match the conditions in the query, rather than having to scan the entire table.
+
+        There are two main types of indexes in SQL:
+
+        B-tree indexes: 
+            This is the most common type of index used in relational databases. B-tree indexes are used to index values in a column and are used for range queries, such as SELECT statements with a WHERE clause.
+
+        Hash indexes: 
+            Hash indexes are used for equality queries, such as SELECT statements with a WHERE clause that uses the = operator. Hash indexes are less common than B-tree indexes, as they are typically less efficient for range queries and require more memory to store.
+
+        To create an index in SQL, you can use the CREATE INDEX command. For example, to create a B-tree index on the email column in the customers table, you would use the following syntax:
+            CREATE INDEX index_email ON customers (email);
+        
+        It's important to note that over-indexing can negatively impact performance, as each index requires additional memory and processing time to maintain. As such, you should only create indexes for columns that are frequently used in queries and that will benefit from having an index.
 
 - GIT:
 	- have you used any versioning tool
-	- create branch command in git (git branch branchname)
-	- if yes then what is git stash
-	- git stash pop (git stash pop throws away the (topmost, by default) stash after applying it, whereas git stash apply leaves it in the stash list for possible later reuse (or you can then git stash drop it).)
-	- what is git rebase (It is an alternative of git merge command. It is a linear process of merging)
+	
+    create branch command in git
+    A -
+        git branch new-branchname
+        OR
+        git checkout -b new-branchname
+
+	what is git stash
+    A - 
+        The git stash command takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy.
+        stash is local to your Git repository; stashes are not transferred to the server when you push.
+        You can reapply previously stashed changes with git stash pop
+        Popping your stash removes the changes from your stash and reapplies them to your working copy.
+        Alternatively, you can reapply the changes to your working copy and keep them in your stash with git stash apply.This is useful if you want to apply the same stashed changes to multiple branches.
+        Adding the -u option (or --include-untracked) tells git stash to also stash your untracked file
+        You can include changes to ignored files as well by passing the -a option (or --all) when running git stash.
+        e.g to track the files based on the state of file.
+            Tracked files (git stash)
+            Untracked files (git stash -u)
+            git ignored files (git statsh -a)
+
+        If you decide you no longer need a particular stash, you can delete it with git stash drop Or you can delete all of your stashes with: $ git stash clear
+
+	what is git rebase (It is an alternative of git merge command)
+    A - 
+        Rebasing is the process of combining or moving a sequence of commits on top of a new base commit. Git rebase is the linear process of merging.
+        rebasing is changing the base of your branch from one commit to another making it appear as if you'd created your branch from a different commit. Internally, Git accomplishes this by creating new commits and applying them to the specified base. It's very important to understand that even though the branch looks the same, it's composed of entirely new commits.
