@@ -1,0 +1,247 @@
+- Personal :
+	- tell me about yourself
+	- eduction, working with, years of experience
+	- projects you have worked on
+	- how many projects were in laravel
+	- curently working on which project
+	- what is that project about
+	- what functionalities have you worked on
+	- is the project domestic or international
+
+- PHP :
+	why are sessions used in php (A session is a way to store information (in variables) to be used across multiple pages.)
+    A - 
+        When we work with an application, we open it, do some changes, and then we close it. This is
+        much like a Session. The computer knows who we are. It knows when we start the application and when we end. But on the internet there is one problem: the web server does not know who we are or what we do, because the HTTP address doesn't maintain state.
+
+        Session variables solve this problem by storing user information to be used across multiple pages (e.g. username, favorite color, etc). By default, session variables last until the user closes the browser. Session variables hold information about one single user, and are available to all pages in one application.
+
+        How does it work? How does it know it's me?
+        Most sessions set a user-key on the user's computer that looks something like 32 characters -  765487cf34ert8dede5a562e4f3a7e12. Then, when a session is opened on another page, it scans the computer for a user-key. If there is a match, it accesses that session, if not, it starts a new session.
+
+        All Session variables are stored in PHP global variable: $_SESSION.
+
+        e.g
+        <?php
+            
+            session_start(); // start session & sets the session cookie in browser.
+            echo session_id(); // Display the session id
+            $_SESSION['name'] = 'GeeksForGeeks'; //set session with key name
+            $_SESSION['email'] = 'GeeksForGeeks@email.com' ; //set session with key email
+        ?>
+        <!DOCTYPE html>
+        <html>
+            <body>
+                <?php
+                    // Echo session variables that were set on previous page
+                    echo "Name is " . $_SESSION["name"] . ".<br>";
+                    echo "Email is " . $_SESSION["email"] . ".";
+
+                    // remove all session variables but session exist only data removed.
+                    session_unset();
+
+                    //destroys the whole session rather destroying the variables.
+                    session_destroy();
+                ?>
+            </body>
+        </html>
+
+
+	session_unset() v/s session_destroy() 
+	A - 
+        unset($_SESSION['name'])
+            It deletes only the variables from session and session still exists. Only data is truncated.
+        session_destroy()
+            It destroys all of the data associated with the current session. It does not unset any of the global variables associated with the session, or unset the session cookie.
+            We need to delete the cookies also to completely destroy the session by calling session_destroy.
+
+
+    what is interfaces (interfaces allow you to specify which methods a class should implement)
+	A - 
+        An Interface allows the users to create programs, specifying the public methods that a class must implement, without involving the complexities and details of how the particular methods are implemented. It is generally referred to as the next level of abstraction.
+
+        An Interface is defined just like a class is defined but with the class keyword replaced by the interface keyword and just the function prototypes. The interface contains no data variables. The interface is helpful in a way that it ensures to maintain a sort of metadata for all the methods a programmer wishes to work on.
+
+        characteristics of an Interface are :
+            An interface consists of methods that have no implementations, which means the interface methods are abstract methods.
+            All the methods in interfaces must have public visibility scope.
+            Interfaces are different from classes as the class can inherit from one class only whereas the class can implement one or more interfaces.
+
+        e.g
+        <?php
+
+        interface Animal {
+            const SOUND = "makes sound";
+            public function makeSound();
+        }
+        
+        class Cat implements Animal {
+            public function makeSound() {
+                echo "Cat makes sound meow" . "\n";
+            }
+        }
+
+        class Dog implements Animal {
+            public function makeSound() {
+                echo "Dog makes sound bark" . "\n";
+            }
+        }
+
+        $cat = new Cat;
+        $cat->meow(); //meow method called
+
+        $dog = new Dog;
+        $cat->bark(); //bark method called
+
+        ?>
+
+        Advantages of PHP Interface are :
+        a - An interface allows unrelated classes to implement the same set of methods, regardless of their positions in the class inheritance hierarchy.
+        b - An interface can model multiple inheritances because a class can implement more than one interface whereas it can extend only one class.
+        c- we can access the interface property by using scope resolution operator(Animal::SOUND)
+
+
+    Concrete Class: 
+    A - 
+        The class which implements an interface is called the Concrete Class. It must implement all the methods defined in an interface. Interfaces of the same name can’t be implemented because of ambiguity error.
+
+
+    what is abstract class
+    A - 
+        An abstract class is a class that contains at least one abstract method. An abstract method is a method that is declared, but not implemented in the code. An abstract class can contain abstract as well as non abstract methods. An abstract class or method is defined with the abstract keyword.
+        Instance of abstract class can not be created and it can also contain constructor.
+
+        e.g
+        <?php
+            // Parent class
+            abstract class Car {
+                public $name;
+                public function __construct($name) {
+                    $this->name = $name;
+                }
+                abstract public function intro(); 
+            }
+
+            // Child classes
+            class Audi extends Car {
+            public function intro() {
+                return "Choose German quality! I'm an $this->name!"; 
+            }
+            }
+
+            class Volvo extends Car {
+            public function intro() {
+                return "Proud to be Swedish! I'm a $this->name!"; 
+            }
+            }
+
+            // Create objects from the child classes
+            $audi = new audi("Audi");
+            echo $audi->intro();
+            echo "<br>";
+
+            $volvo = new volvo("Volvo");
+            echo $volvo->intro();
+            echo "<br>";
+        ?>
+
+
+	what is method overloading and method overriding
+    A -
+        overloading - function can have same method signature but different number of arguments.
+        overriding -  functions will have same method signature and number of arguments.
+
+        overloading - function overloading is done with the help of magic function __call(). This function takes function name and arguments.
+        e.g
+            <?php
+                class shape {                    
+                    // __call is magic function which accepts function name and arguments
+                    function __call($name_of_function, $arguments) {
+                        if($name_of_function == 'area') {
+                            switch (count($arguments)) {
+                                // If there is only one argument calculate area of circle
+                                case 1:
+                                    return 3.14 * $arguments[0];
+
+                                // IF two arguments then calculate area of rectangle;
+                                case 2:
+                                    return $arguments[0]*$arguments[1];
+                            }
+                        }
+                    }
+                }
+                // Declaring a shape type object
+                $s = new Shape;    
+                // Function call with 1 argument area method for circle
+                echo($s->area(2)); // 6.28
+                echo "\n";
+                // Function call with 2 argument area method for rectangle
+                echo ($s->area(4, 2)); //8
+                ?>
+
+        overriding - In function overriding, both parent and child classes should have same function name with and number of arguments. It is used to replace parent method in child class. The purpose of overriding is to change the behavior of parent class method. The two methods with the same name and same parameter is called overriding.
+        e.g 
+            <?php
+            // This is parent class
+            class P {
+                // Function geeks of parent class
+                function geeks() {
+                    echo "Parent";
+                }
+            }
+
+            // This is child class which extends P parent class.
+            class C extends P {
+                // Overriding geeks method
+                function geeks() {
+                    echo "\nChild";
+                }
+            }
+            $p = new P;
+            $c= new C;
+            $p->geeks(); // Parent
+            $c->geeks(); // Child
+            ?>
+
+        
+	which one is better? sessions or cookies?
+	A - 
+    
+    - How does php allow multiple inheritance (yes it supports multiple inheritance through traits, Traits are used to declare methods that can be used in multiple classes.)
+	- what is diference between array_merge( merge two or more arrays into a single array) and array_combine (combine two arrays and create a new array by using one array for keys and another array for values)
+	- what are types of errors in php (syntax/parse, fatal, warning, notice)
+	- what is runtime polymorphism (method overriding)
+	- what are access modifiers in php (private, public, protected)
+	- how are errors handled
+	- what are exceptions and how do we handle exceptions
+	- how to handle infinite loopp error in php
+	- what is difference between error handling and exception handling
+	- what is final keyword  (The final keyword can be used to prevent class inheritance or to prevent method overriding)
+	- static methods (Static methods can be called directly - without creating an instance of the class first)
+	- cookie (A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too)
+	
+- laravel :
+	- what are interfaces
+	- what are traits (Traits are used to declare methods that can be used in multiple classes. Traits can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier (public, private, or protected).)
+	- what are service providers
+	- what are service containers
+	- why are migrations used in laravel
+	- what are middlewares
+	- can you create custom middlewares
+	- where do you register middlewares
+	- what are repositories, how are they used
+	
+- MySQL :
+	- what are stored procedures (stored procedure is a prepared sql code that you can save so that code can be reused again)
+	- what are triggers (special type of stored procedure that automatically runs when an event occurs in the db server)
+	- what is primary key, foreign key and unique key (why are they used for) (primary key - which uniquely identifies each row/record in db table primary keys must contain unique values and hence it canot contain null value )
+	- can unique values contain null values if yes then how many (it can be null, multiple unique keys can be present in a table)
+	- what is indexing (used to retrieve data from db very fast, to increase performance of queries )
+	- how do we do indexing
+
+- GIT:
+	- have you used any versioning tool
+	- create branch command in git (git branch branchname)
+	- if yes then what is git stash
+	- git stash pop (git stash pop throws away the (topmost, by default) stash after applying it, whereas git stash apply leaves it in the stash list for possible later reuse (or you can then git stash drop it).)
+	- what is git rebase (It is an alternative of git merge command. It is a linear process of merging)
