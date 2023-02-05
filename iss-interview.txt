@@ -1,0 +1,173 @@
+What is php and what is it used for?
+    PHP(short for Hypertext PreProcessor) is the most widely used open source and general purpose server side scripting language used mainly in web development to create dynamic websites and applications. It was developed in 1994 by Rasmus Lerdorf. PHP is not only used to build the web apps like Facebook, Slack but is also used to build many CMS (Content Management System) like WordPress, Drupal, Shopify, WooCommerce etc.
+
+    PHP can actually do anything related to server-side scripting or more popularly known as the backend of a website. 
+    For example, PHP can receive data from forms, generate dynamic page content, can work with databases, create sessions, send emails etc. 
+    There are also many hash functions available in PHP to encrypt user’s data that makes PHP secure and reliable to be used as a server-side scripting language.
+    Advantages:
+    Platform Independent
+    Open source and dynamic Library support
+    Organized
+    Database Connectivity
+    Easy to understand and code
+    Gives Web Developer More Control
+    Easy integration and consistency
+    Maintenance
+    Stability
+    Performance
+    Reliability
+    Scalability
+    Compatibility
+
+
+What is mvc architecture?
+    MVC stands for "Model view And Controller".
+    MVC is a software architectural pattern for implementing user interfaces.
+    It divides a given application into three interconnected parts.
+    This is done to separate the Business logic & Application data from the USER interface.
+    The main advantage of MVC Architecture is Reusability, Security and Increasing the performance of Application.
+    Model: 
+        Represent database CRUD operations.
+        Model is not aware about the presentation of data and How the data will be display to the browser.
+        The Model object contain all the data that need to be displayed.
+
+    View: 
+        The View represents the presentation of the application.
+        End-user GUI through which user can interact with the application, i.e., HTML, CSS.
+
+    Controller: 
+        Whenever the user sends a request for something, it always goes through Controller.
+        A controller is responsible for intercepting the request from view and passes to the model for appropriate action.
+        After the action has been taken on the data, the controller is responsible for directly passes the appropriate view to the user.
+        In graphical user interfaces, controller and view work very closely together.
+        
+
+What is the difference between include and require statements?
+    PHP allows us to create various elements and functions, which are used several times in many pages. It takes much time to script these functions in multiple pages. Therefore, use the concept of file inclusion that helps to include files in various programs and saves the effort of writing code multiple times.
+
+    "PHP allows you to include file so that a page content can be reused many times. It is very helpful to include files when you want to apply the same HTML or PHP code to multiple pages of a website." There are two ways to include file in PHP i.e include() & require(). Both include and require are identical to each other, except failure.
+
+    include : generates a warning, i.e., E_WARNING, and continue the execution of the script.
+        include 'filename ';  
+                Or   
+        include ('filename');  
+    require : generates a fatal error, i.e., E_COMPILE_ERROR, and stop the execution of the script.
+        require 'filename';  
+                Or   
+        require ('filename');  
+    Advantages :
+    Code Reusability: By the help of include and require construct, we can reuse HTML code or PHP script in many PHP scripts.
+    Easy editable: If we want to change anything in webpages, edit the source file included in all webpage rather than editing in all the files separately.
+
+
+How can you improve the performance of php applications?
+    Cache and Minify Static Assets (CSS, JS)
+    Configure Memcache For Database
+    Update PHP Version
+    Improve Code for Better Process
+    Deploy PHP on Cloud Hosting
+
+
+Can you explain the difference between get and post methods in php?
+    We can create and use forms in PHP. To get form data, we need to use PHP superglobals $_GET and $_POST.
+    The form request may be get or post. To retrieve data from get request, we need to use $_GET, for post request $_POST.
+    Get request :
+        the default form request.
+        The data passed through get request is visible on the URL browser so it is not secured.
+        we can send limited amount of data through get request.
+    Post request :
+        widely used to submit form that have large amount of data such as file upload, image upload, login form, registration form etc.
+        The data passed through post request is not visible on the URL browser so it is secured. You can send large amount of data through post request.
+
+What is a php session? How does it work?
+    When we work with an application, we open it, do some changes, and then we close it. This is much like a Session. The computer knows who we are. It knows when we start the application and when we end. But on the internet there is one problem: the web server does not know who we are or what we do, because the HTTP address doesn't maintain state.
+    Most sessions set a user-key on the user's computer that looks something like 32 characters -  765487cf34ert8dede5a562e4f3a7e12. Then, when a session is opened on another page, it scans the computer for a user-key. If there is a match, it accesses that session, if not, it starts a new session.
+    PHP session is used to store and pass information from one page to another temporarily
+    PHP session technique is widely used in shopping websites where we need to store and pass cart information e.g. username, product code, product name, product price etc from one page to another.
+    PHP session creates unique user id for each browser to recognize the user and avoid conflict between multiple browsers.
+    All Session variables are stored in PHP global variable: $_SESSION.
+
+        e.g
+        <?php
+            
+            session_start(); // start session & sets the session cookie in browser.
+            echo session_id(); // Display the session id
+            $_SESSION['name'] = 'GeeksForGeeks'; //set session with key name
+            $_SESSION['email'] = 'GeeksForGeeks@email.com' ; //set session with key email
+        ?>
+        <!DOCTYPE html>
+        <html>
+            <body>
+                <?php
+                    // Echo session variables that were set on previous page
+                    echo "Name is " . $_SESSION["name"] . ".<br>";
+                    echo "Email is " . $_SESSION["email"] . ".";
+
+                    // remove all session variables but session exist only data removed.
+                    session_unset();
+
+                    //destroys the whole session rather destroying the variables.
+                    session_destroy();
+                ?>
+            </body>
+        </html>
+    
+
+How do you handle errors in php and what is the difference between exceptions and errors?
+    Exceptions are related to the application whereas Errors are related to the environment in which application is running.
+
+    Error are of 4 type
+        Parse error or Syntax Error: 
+            It is the type of error done by the programmer in the source code of the program. The syntax error is caught by the compiler.
+            Parse errors can be caused dues to unclosed quotes, missing or Extra parentheses, Unclosed braces, Missing semicolon etc
+
+        Fatal Error:
+            It is the type of error where PHP compiler understand the PHP code but it recognizes an undeclared function. This means that function is called without the definition of function.
+
+        Warning Errors:
+            The main reason of warning errors are including a missing file. This means that the PHP function call the missing file.
+
+        Notice Error:
+            It is similar to warning error. It means that the program contains something wrong but it allows the execution of script. Error like undefined variable.
+
+    Exceptions
+        Exception is used to change the normal flow of the code execution if a specified error (exceptional) condition occurs. This condition is called an exception. we can make use of Try, throw and catch to handle exceptions. Program execution will continue - because you 'caught' the exception. An exception will be treated as an error unless it is caught. It will allow you to continue program execution after it fails as well.
+
+
+What is object-oriented programming in php? Can you give an example?
+    OOP stands for Object-Oriented Programming. (class,object,member variable,member funtion,inheritance,parent class,child class,polymorphism,overloading,data abstraction,encapsulation,constructor)
+    Object-oriented programming is about creating objects that contain both data and functions.
+
+
+Can you explain how php handles file uploads and what are the security concerns with file uploads?
+    Which aspect of the file the website fails to validate properly, whether that be its size, type, contents, and so on.
+    What restrictions are imposed on the file once it has been successfully uploaded.
+    Never let anybody or anything access the file arbitrarily. For example, if an attacker uploads a malicious.php file to your server and you're storing it in the webroot directory of your site, a user can simply go to example.com/uploads/malicious.php to execute that file and run arbitrary PHP code on your server.
+
+
+What is a php framework and have you worked with any php frameworks before? If yes, which ones and why did you choose them?
+
+Can you explain the Model-View-Controller (MVC) architecture and how you have implemented it in your past projects?
+
+How do you handle version control in your projects and what VCS(version control system) have you used?
+
+Can you discuss your experience with PHP frameworks such as Laravel or CodeIgniter?
+    Laravel is an open-sourced web framework known for its server-side handling of routing, HTML authentication, templating, and more. Created by Taylor Otwell, Laravel is written in PHP and is based on Symfony that provides reusable PHP components/libraries. Since it is a server-side-based framework, with Laravel, you can build applications with pre-defined architectures, customized backend logic, web portal, templates, and full-stack apps as well as manage SaaS products.
+
+How do you handle database migrations and what tools have you used for it?
+
+Can you explain the concept of RESTful API and give an example of how you have implemented it in a project?
+Have you worked with third-party integrations and how did you approach the integration process?
+Can you discuss your experience with security best practices such as input validation, sanitization, and encryption?
+Can you give an example of how you have optimized the performance of a PHP application?
+How do you stay updated with the latest developments in PHP and related technologies?
+Can you walk us through a project you have worked on that required scaling and how you approached it?
+Can you tell us about your experience with PHP development and the projects you have worked on?
+How do you approach testing and debugging your code?
+Can you explain your understanding of object-oriented programming and design patterns in PHP?
+Can you give an example of how you have integrated a PHP application with a database such as MySQL or PostgreSQL?
+Can you walk us through the steps you take when optimizing the performance of a PHP application?
+How do you ensure the security of your PHP applications, both from a code and infrastructure perspective?
+Can you describe your experience with integrating PHP applications with third-party APIs and services?
+How do you stay current with developments and advancements in the PHP ecosystem and community?
+Can you give an example of a complex problem you solved using PHP and how you went
