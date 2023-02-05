@@ -57,6 +57,7 @@
 
 
     what is interfaces (interfaces allow you to specify which methods a class should implement)
+    other class implements interface class
 	A - 
         An Interface allows the users to create programs, specifying the public methods that a class must implement, without involving the complexities and details of how the particular methods are implemented. It is generally referred to as the next level of abstraction.
 
@@ -106,7 +107,7 @@
         The class which implements an interface is called the Concrete Class. It must implement all the methods defined in an interface. Interfaces of the same name can’t be implemented because of ambiguity error.
 
 
-    what is abstract class
+    what is abstract class (other class extends abstract class)
     A - 
         An abstract class is a class that contains at least one abstract method. An abstract method is a method that is declared, but not implemented in the code. An abstract class can contain abstract as well as non abstract methods. An abstract class or method is defined with the abstract keyword.
         Instance of abstract class can not be created and it can also contain constructor.
@@ -206,6 +207,12 @@
         
 	which one is better? sessions or cookies?
 	A - 
+        Sessions are more secured compared to cookies, as they save data in encrypted form.
+        Cookies are not secure, as data is stored in a text file, and if any unauthorized user gets access to our system, he can temper the data.
+        
+        We can store as much data as we want within a session, but there is a maximum memory limit, which a script can use at one time, and it is 128 MB.
+        The maximum size of the browser's cookies is 4 KB.
+
 
     How does php allow multiple inheritance (yes it supports multiple inheritance through traits, Traits are used to declare methods that can be used in multiple classes.)
 	A -
@@ -313,6 +320,10 @@
 	what is runtime polymorphism (method overriding)
 
 	what are access modifiers in php (private, public, protected)
+    A - 
+        public - the property or method can be accessed from everywhere. This is default
+        protected - the property or method can be accessed within the class and by classes derived from that class
+        private - the property or method can ONLY be accessed within the class
 	
     how are errors handled
     A - 
@@ -326,7 +337,7 @@
 	A - 
         Exception handling is used to change the normal flow of the code execution if a specified error (exceptional) condition occurs. This condition is called an exception. we can make use of Try, throw and catch to handle exceptions.
 
-    how to handle infinite loopp error in php
+    how to handle infinite loop error in php
 	A - 
         infinite loops can be caused by incorrect logic in your code. To handle them, you can use the following techniques:
 
