@@ -157,17 +157,31 @@ Can you discuss your experience with PHP frameworks such as Laravel or CodeIgnit
 How do you handle database migrations and what tools have you used for it?
 
 Can you explain the concept of RESTful API and give an example of how you have implemented it in a project?
+
 Have you worked with third-party integrations and how did you approach the integration process?
+
 Can you discuss your experience with security best practices such as input validation, sanitization, and encryption?
+
 Can you give an example of how you have optimized the performance of a PHP application?
+
 How do you stay updated with the latest developments in PHP and related technologies?
+
 Can you walk us through a project you have worked on that required scaling and how you approached it?
+
 Can you tell us about your experience with PHP development and the projects you have worked on?
+
 How do you approach testing and debugging your code?
+
 Can you explain your understanding of object-oriented programming and design patterns in PHP?
+
 Can you give an example of how you have integrated a PHP application with a database such as MySQL or PostgreSQL?
+
 Can you walk us through the steps you take when optimizing the performance of a PHP application?
+
 How do you ensure the security of your PHP applications, both from a code and infrastructure perspective?
+
 Can you describe your experience with integrating PHP applications with third-party APIs and services?
+
 How do you stay current with developments and advancements in the PHP ecosystem and community?
-Can you give an example of a complex problem you solved using PHP and how you went
+
+Can you give an example of a complex problem you solved using PHP and how you went solving it?
