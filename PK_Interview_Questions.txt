@@ -1,0 +1,14 @@
+Medisage 17 Mar 2023 - 4.30PM-5.30PM
+About Yourself
+What is $this in php
+How request is handled in nginx
+How to debug if application is performing slow on vuejs and we are using API in ui to see the content
+What is queue
+What is worker and supervisor
+How laravel queue works
+How to print even no. between 0-100 without using % or /
+Why 500 error occurs on nginx after hosting web application on nginx
+file permission command explaination
+what is php-FPM
+What you ever handle big data
+Why and how indexing work
