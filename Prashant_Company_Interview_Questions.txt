@@ -36,5 +36,22 @@ Round:1 (HR Telephonic) - 17 Mar 2023
     Expectation
     Exp yrs 
 
-Round:2 (G-Meet) - 20 Mar 2023
+Round:2 (SDE2 G-Meet) - 20 Mar 2023
+    About Yourself
+    How many projects worked on
+    Critical task performed by you
+    How do you optimize your application
+    Queue vs cronjob
+    What are magic funtions
+    Why and how to use Traits
+    Traits vs interface
+    Service container vs Service provider
+    Laravel lifecycle
+    What is throttling in API
+    What is rate limiting
+    What is error 429 in API
+    Have you faced any issue while using queue
+    What is supervisor and how do you setup it on server
+    How to manage throttling in laravel
+    Why we use ORM and not RAW DB
     

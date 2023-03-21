@@ -771,17 +771,23 @@ echo $person->getName();   // Outputs "John"
 Explain lifecycle and flow of nginx and php application?
 The lifecycle and flow of an Nginx and PHP application can be described as follows:
 
-1.User makes a request: When a user makes a request to the Nginx server, Nginx listens on the specified port (usually port 80 or 443 for HTTPS) and accepts the incoming connection.
+1.User makes a request:
+When a user makes a request to the Nginx server, Nginx listens on the specified port (usually port 80 or 443 for HTTPS) and accepts the incoming connection.
 
-2.Nginx processes the request: Nginx processes the request and tries to match the requested URL with one of the defined server blocks (virtual hosts). If a match is found, Nginx passes the request to the PHP-FPM process manager using FastCGI protocol.
+2.Nginx processes the request:
+Nginx processes the request and tries to match the requested URL with one of the defined server blocks (virtual hosts). If a match is found, Nginx passes the request to the PHP-FPM process manager using FastCGI protocol.
 
-PHP-FPM processes the request: PHP-FPM (FastCGI Process Manager) is responsible for managing and processing the PHP requests. It creates and manages multiple PHP-FPM child processes to handle incoming requests, based on the number of worker processes specified in its configuration.
+3.PHP-FPM processes the request:
+PHP-FPM (FastCGI Process Manager) is responsible for managing and processing the PHP requests. It creates and manages multiple PHP-FPM child processes to handle incoming requests, based on the number of worker processes specified in its configuration.
 
-PHP processes the request: Once the request is received by the PHP-FPM child process, it processes the PHP code and generates the HTML content or any other response that is required.
+4.PHP processes the request:
+Once the request is received by the PHP-FPM child process, it processes the PHP code and generates the HTML content or any other response that is required.
 
-PHP-FPM sends the response to Nginx: Once the PHP code is executed, PHP-FPM sends the response back to Nginx using the FastCGI protocol.
+5.PHP-FPM sends the response to Nginx: 
+Once the PHP code is executed, PHP-FPM sends the response back to Nginx using the FastCGI protocol.
 
-Nginx sends the response to the user: Finally, Nginx sends the response to the user who made the request. If the response includes static content (e.g. CSS or images), Nginx serves them directly from its cache, avoiding the need to involve PHP-FPM.
+6.Nginx sends the response to the user:
+Finally, Nginx sends the response to the user who made the request. If the response includes static content (e.g. CSS or images), Nginx serves them directly from its cache, avoiding the need to involve PHP-FPM.
 
 Overall, the flow of a PHP application with Nginx is a multi-step process that involves multiple components working together. The request is first processed by Nginx, which then passes it on to PHP-FPM for processing. After processing, the response is sent back to Nginx and then finally to the user who made the request. This flow is critical to the efficient and reliable operation of a PHP application running on nginx.
 
