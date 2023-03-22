@@ -801,3 +801,90 @@ The PHP worker process returns the response to the PHP FPM process.
 The PHP FPM process returns the response to Nginx.
 Nginx sends the response back to the client.
 During this flow, Nginx can also perform various tasks such as load balancing, SSL termination, and caching to improve the performance and security of the PHP application. Additionally, PHP can handle database connections, session management, and other backend logic to generate dynamic content for the client.
+
+
+What is supervisor and how to configure it on nginx server ?
+    The supervisor is a process manager which Laravel suggests to use as a process monitor for queue workers. It will automatically start the queue worker in the background, even after the system has booted and will automatically restart the worker if the worker exits unexpectedly.
+    In order to run background jobs using database driver you need to have few tables. Run following command to add migration that creates few tables related to our background jobs.
+    # add migration tables
+    $ php artisan queue:table
+
+    # run the migration
+    $ php artisan migrate​
+
+    Once you have queue driver setup how does laravel know when to run these background jobs? Well, laravel needs to know about this jobs.
+    We have to setup a daemon that runs in background and keep looking for active jobs and process them as it finds a new job queued in the database.
+    Supervisor is basically linux based daemon that runs in the background. We have to configure our laravel app so that supervisor know about background jobs.
+    To install and configure supervisor we will run following commands in our linux terminal window:
+    # install supervisor
+    $ sudo apt-get install supervisor
+
+    # go to supervisor config directory
+    cd /etc/supervisor/conf.d
+
+    # create a new laravel configuration
+    $ sudo nano laravel-worker.conf
+
+    # paste following contents to our file
+    [program:laravel-worker]
+    process_name=%(program_name)s_%(process_num)02d
+    command=php /var/www/app.com/artisan queue:work
+    autostart=true
+    autorestart=true
+    user=root
+    numprocs=8
+    redirect_stderr=true
+    stdout_logfile=/var/www/app.com/worker.log​
+
+    Make sure in above file to change the location of your project directory by replacing  /var/www/app.com and to replace user with your linux logged in user id.
+    Once we saved the contents we need to run following command to initialize new configurations:
+    # read the new config
+    $ sudo supervisorctl reread
+
+    # activate our configuration
+    $ sudo supervisorctl update
+
+    # start queue command
+    $ sudo supervisorctl start laravel-worker:*
+
+    # check the status of our new config
+    $ sudo supervisorctl status​
+
+    That is it, we are all setup with supervisor. Our next task will be to create a new job and push that job into database. Our supervior will pick up this new job and process it in the background.
+
+
+
+How to Fix 500 Internal Server Error in NGINX ?
+    Sometimes NGINX server may give 500 Internal Server Error due to various reasons.
+    NGINX gives 500 Internal Server Error when there is a server-side error that prevents NGINX from returning a proper response.
+    It can be due to many different reasons such as faulty script, missing files referenced by code, inadequate file permissions, etc.
+    
+    Examine Server Logs - By default, NGINX writes its events in two types of logs - the error log and the access log can be found in /var/log/nginx
+    
+    Check File/Folder Permission - This can also be due to improper file/folder permissions.Typically, files need a 644 permission and folders need a 755 permission.
+    
+    Restart NGINX - check syntax of your updated config file.
+    $ sudo nginx -t
+    If there are no errors, run the following command to restart NGINX server.
+    $ sudo service nginx restart
+
+    Increase Script Timeout - You may also get 500 internal server error in NGINX if your web server (e.g Apache) is timing out on the request. In such cases, increase your web server (not NGINX) timeout value so that it stays connected to NGINX longer, and returns a proper response.
+
+
+
+How To Increase File Upload Size in NGINX ?
+    By default, NGINX supports max file upload size of 1 Mb. If users upload bigger files, they will get a “413: Request Entity Too Large” error. 
+    To increase file upload size in NGINX. We will use the client_max_body_size directive to set the NGINX max file upload size limit. You can place client_max_body_size directive in http, server or location.
+    $ sudo /etc/nginx/nginx.conf
+    http{
+        ...
+        client_max_body_size 50M;
+        ...
+    }
+
+    Let’s say you want to increase upload file size limit for a particular directive/URL. In that case, you can add the line client_max_body_size 100M. Let’s say you want to increase file upload size for /uploads folder
+    location /uploads {
+        ...
+        client_max_body_size 50M;
+    }
+
