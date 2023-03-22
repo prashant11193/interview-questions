@@ -23,8 +23,11 @@ Round:2 (Google Meet with Tech Lead - Avitus ) - 17 Mar 2023
     Why 500 error occurs on nginx after hosting web application on nginx
     file permission command explaination
     what is php-FPM
-    What you ever handle big data
-    Why and how indexing work
+    Have you ever handled big data?
+    Why and how indexing work?
+    What is access modifier?
+    Which acees modifier we can use in trait, interface and abstract classes ?
+
 
 Round:3 (G-Meet with Head of Engg - Vikas) - 23 Mar 2023
 

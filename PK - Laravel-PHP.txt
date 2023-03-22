@@ -860,14 +860,11 @@ How to Fix 500 Internal Server Error in NGINX ?
     It can be due to many different reasons such as faulty script, missing files referenced by code, inadequate file permissions, etc.
     
     Examine Server Logs - By default, NGINX writes its events in two types of logs - the error log and the access log can be found in /var/log/nginx
-    
     Check File/Folder Permission - This can also be due to improper file/folder permissions.Typically, files need a 644 permission and folders need a 755 permission.
-    
     Restart NGINX - check syntax of your updated config file.
     $ sudo nginx -t
     If there are no errors, run the following command to restart NGINX server.
     $ sudo service nginx restart
-
     Increase Script Timeout - You may also get 500 internal server error in NGINX if your web server (e.g Apache) is timing out on the request. In such cases, increase your web server (not NGINX) timeout value so that it stays connected to NGINX longer, and returns a proper response.
 
 
