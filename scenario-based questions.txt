@@ -64,12 +64,7 @@
         }
     }
 
-    In the example above, the Cart class provides four methods: addProduct(), removeProduct(), updateQuantity(), and getProducts(). The addProduct() method adds a product to the cart or updates its quantity, the removeProduct() method removes a product from the cart, the updateQuantity() method updates the quantity of a product in the cart, and the getProducts() method returns the cart data with the product details.
-
-
-
-You are developing an e-commerce website using Laravel. How would you implement the shopping cart functionality?
-    Answer: To implement the shopping cart functionality in Laravel, we can use session variables to store the cart items and their quantities. We can create a Cart class that handles the cart operations, such as adding items to the cart, removing items from the cart, and updating item quantities. The Cart class can use Laravel's session helper functions to store and retrieve the cart data from the session variables. The cart data can be stored as an array of items, where each item contains the product information, such as the product ID, name, price, and quantity. We can also add additional functionalities to the Cart class, such as calculating the cart total, applying discounts, and handling taxes and shipping fees.
+    In the example above, the Cart class provides four methods: addProduct(), removeProduct(), updateQuantity(), and getProducts(). The addProduct() method adds a product to the cart or updates its quantity, the removeProduct() method removes a product from the cart, the updateQuantity() method updates the quantity of a product in the cart, and the getProducts() method returns the cart data with the product details.The cart data can be stored as an array of items, where each item contains the product information, such as the product ID, name, price, and quantity. We can also add additional functionalities to the Cart class, such as calculating the cart total, applying discounts, and handling taxes and shipping fees.
 
 
 You are working on a project that requires integration with a payment gateway. How would you implement the payment gateway integration in Laravel?
