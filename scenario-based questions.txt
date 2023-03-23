@@ -127,44 +127,70 @@ To design the database structure for a ticket booking application like BookMySho
         password
         mobile_number
         address
-        payment_information
+
+    Payments table:
+        payment_id (Primary Key)
+        amount
+        datetime
+        payment_method
+        payment_transaction_id
+        booking_id (Foreign Key)
         
     Movies table:
         movie_id (Primary Key)
-        movie_name
-        language
+        title
+        description
         genre
         duration
         rating
-        director
-        cast
+        language
         release_date
-    
-    Cinemas table:
-        cinema_id (Primary Key)
-        cinema_name
-        location
-        contact_information
-    
-    Screens table:
-        screen_id (Primary Key)
-        cinema_id (Foreign Key)
-        screen_name
-        capacity
-    
+
     Shows table:
         show_id (Primary Key)
-        screen_id (Foreign Key)
-        movie_id (Foreign Key)
-        show_time
-        price
-        available_seats
+        date
+        start_time
+        end_time
+        cinema_hall_id (Foreign Key)
+        movie_id
     
     Bookings table:
         booking_id (Primary Key)
+        numbers_of_seats
+        status
         user_id (Foreign Key)
         show_id (Foreign Key)
-        booking_date
-        booked_seats
+    
+    Cinema_seats table:
+        cinema_seat_id (Primary Key)
+        seat_number
+        type
+        cinema_hall_id (Foreign Key)
+
+    Show_seats table:
+        cinema_seat_id (Primary Key)
+        status
+        price
+        cinema_seat_id (Foreign Key)
+        show_id (Foreign Key)
+        booking_id (Foreign Key)
+
+    Cinema_halls table:
+        cinema_hall_id (Primary Key)
+        cinema_name
+        total_seats
+        cinema_id (Foreign Key)
+
+    Cinemas table:
+        cinema_id (Primary Key)
+        cinema_name
+        total_cinema_halls
+        city_id (Foreign Key)
+
+    City table:
+        city_id (Primary Key)
+        name
+        state
+        zip
     
     These are the essential tables and columns required to design the BookMyShow application's database structure. However, you may need to add additional tables and columns, depending on the specific requirements of the application.
