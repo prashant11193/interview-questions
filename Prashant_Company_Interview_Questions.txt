@@ -25,8 +25,6 @@ Round:2 (Google Meet with Tech Lead - Avitus ) - 17 Mar 2023
     what is php-FPM
     Have you ever handled big data?
     Why and how indexing work?
-    What is access modifier?
-    Which acees modifier we can use in trait, interface and abstract classes ?
 
 
 Round:3 (G-Meet with Head of Engg - Vikas) - 23 Mar 2023
@@ -57,4 +55,5 @@ Round:2 (SDE2 G-Meet) - 20 Mar 2023
     What is supervisor and how do you setup it on server
     How to manage throttling in laravel
     Why we use ORM and not RAW DB
-    
+    What is access modifier?
+    Which acees modifier we can use in trait, interface and abstract classes ?
