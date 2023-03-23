@@ -116,3 +116,55 @@ How would you handle database migrations in a Laravel application, and what are 
 How would you handle exceptions and error reporting in a Laravel application, and what are some security concerns to consider?
 
     This question aims to test the candidate's knowledge of exception handling and security considerations in Laravel. The candidate should be able to explain that Laravel provides a robust exception handling system that can catch and report errors and exceptions in the application. The candidate should also be able to suggest best practices for error reporting, such as logging errors to a file or database, using third-party services like Sentry or Bugsnag, and customizing error pages. Additionally, the candidate should be able to identify security concerns, such as leaking sensitive information in error messages, and suggest ways to mitigate them, such as using custom exception handlers and sanitizing user inputs.
+
+
+To design the database structure for a ticket booking application like BookMyShow, you will need to create the following tables and columns:
+
+    Users table:
+        user_id (Primary Key)
+        name
+        email
+        password
+        mobile_number
+        address
+        payment_information
+        
+    Movies table:
+        movie_id (Primary Key)
+        movie_name
+        language
+        genre
+        duration
+        rating
+        director
+        cast
+        release_date
+    
+    Cinemas table:
+        cinema_id (Primary Key)
+        cinema_name
+        location
+        contact_information
+    
+    Screens table:
+        screen_id (Primary Key)
+        cinema_id (Foreign Key)
+        screen_name
+        capacity
+    
+    Shows table:
+        show_id (Primary Key)
+        screen_id (Foreign Key)
+        movie_id (Foreign Key)
+        show_time
+        price
+        available_seats
+    
+    Bookings table:
+        booking_id (Primary Key)
+        user_id (Foreign Key)
+        show_id (Foreign Key)
+        booking_date
+        booked_seats
+    
+    These are the essential tables and columns required to design the BookMyShow application's database structure. However, you may need to add additional tables and columns, depending on the specific requirements of the application.
