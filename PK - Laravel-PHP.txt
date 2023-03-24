@@ -885,3 +885,34 @@ How To Increase File Upload Size in NGINX ?
         client_max_body_size 50M;
     }
 
+
+Explain File Permission
+    
+    0  ---  no access
+    1  --x  execute only
+    2  -w-  write access only
+    3  -wx  write and execute
+    4  r--  read only
+    5  r-x  read and execute
+    6  rw-  read and write
+    7  rwx  read, write and execute (full access)
+
+    Some file permission examples:
+
+    777 - all can read/write/execute (full access).
+    755 - owner can read/write/execute, group/others can read/execute.
+    644 - owner can read/write, group/others can read only.
+
+    Some directory permission examples:
+
+    777 - all can read/write/search.
+    755 - owner can read/write/search, others and group can only search.
+
+    Common permissions settings:
+
+    777 - directories with proper permissions on files in directory, use this one very carefully
+    755 - web store folder, CGI scripts
+    751 - log folder
+    701 - webalizer and modlogan folders
+    666 - data files
+    644 - configuration files (files not updated by scripts, html, gif,etc...)
