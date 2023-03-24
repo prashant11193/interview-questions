@@ -57,3 +57,13 @@ Round:2 (SDE2 G-Meet) - 20 Mar 2023
     Why we use ORM and not RAW DB
     What is access modifier?
     Which acees modifier we can use in trait, interface and abstract classes ?
+
+
+Round:3 (EM G-Meet) - 25 Mar 2023
+    About Yourself
+    Critical task performed by you
+    How do you optimize your application
+    Queue
+    Service container vs Service provider
+    Laravel lifecycle
+    What is throttling in API
