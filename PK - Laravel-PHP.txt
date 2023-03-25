@@ -73,6 +73,11 @@ Dependency Injection
             
             $transistor = app(Transistor::class);
 
+    - Service Providers
+        One of the most important kernel bootstrapping actions is loading the service providers for your application. Service providers are responsible for bootstrapping all of the framework's various components, such as the database, queue, validation, and routing components. All of the service providers for the application are configured in the config/app.php configuration file's providers array.
+        
+        Laravel will iterate through this list of providers and instantiate each of them. After instantiating the providers, the register method will be called on all of the providers. Then, once all of the providers have been registered, the boot method will be called on each provider. This is so service providers may depend on every container binding being registered and available by the time their boot method is executed.
+
 Repositories in laravel
     - Helps keeping the code organized and avoiding duplication, as database-related logic is kept in one place. While this benefit is not immediately apparent in small
       projects, it becomes more observable in large-scale projects which have to be maintained for many years.
